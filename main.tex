@@ -1,5 +1,8 @@
 \documentclass[conference]{IEEEtran}
 \usepackage{blindtext, graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+
 
 \ifCLASSINFOpdf
 \else
@@ -51,6 +54,37 @@ Chimera, Language Agnostic, Component-Based Software Engineering, Node JS, CLI.
 \blindtext
 \cite{def:feilhauer}
 
+\iffalse
+\begin{equation}
+p(C_{k},x_{1},\dots ,x_{n})\,
+\end{equation}
+
+\begin{equation}
+E(v,h) = - b'v - c'h - h'Wv
+\label{eq:rbm1}
+\end{equation}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.3\textwidth]
+		{ice.jpg}
+	\caption{Ice Giant}
+	\label{fig:bon1}
+\end{figure}
+
+\begin{lstlisting}[caption=Contoh listing, label=mult1, basicstyle=\small, language=java]
+public static void main(String[] args) {
+	System.out.println("Hello World");
+}
+
+\end{lstlisting}
+
+Fungsi energi $E(v,h)$ pada RBM didefinisikan sebagai persamaan \ref{eq:rbm1}.
+\fi
+
+
+
+
 \subsection{Subsection Heading Here}
 \blindtext
 
@@ -83,6 +117,8 @@ Conway, T., Parallel Processing on the Cheap: Using Unix Pipes to Run SAS Progra
 
 \bibitem{mass:mcilroy}
 Mcilroy, M. D., Mass Produced Software Components, Report on a conference sponsored by the NATO SCIENCE COMMITTEE, Garmisch, Germany, 7th to 11th October 1968
+
+
 
 \end{thebibliography}
 
