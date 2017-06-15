@@ -1,0 +1,150 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdftex 2016.11.7)  15 JUN 2017 19:38
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**main.tex
+(./main.tex
+! Undefined control sequence.
+l.1 \documentclass
+                  [conference]{IEEEtran}
+? 
+! Undefined control sequence.
+l.2 \usepackage
+               {blindtext, graphicx}
+? 
+! Undefined control sequence.
+l.3 \usepackage
+               {amsmath}
+? 
+! Undefined control sequence.
+l.4 \usepackage
+               {listings}
+? 
+! Undefined control sequence.
+l.7 \ifCLASSINFOpdf
+                   
+? 
+! Extra \else.
+l.8 \else
+         
+? 
+! Extra \fi.
+l.9 \fi
+       
+? 
+! Undefined control sequence.
+l.16 \begin
+           {document}
+? 
+! Undefined control sequence.
+l.18 \title
+           {Chimera: Agnostic Language Component Based Framework using NodeJ...
+
+? 
+! Undefined control sequence.
+l.20 \author
+            {\IEEEauthorblockN{Go Frendi Gunawan}
+? 
+! Undefined control sequence.
+l.20 \author{\IEEEauthorblockN
+                              {Go Frendi Gunawan}
+? 
+! Undefined control sequence.
+l.21 \IEEEauthorblockA
+                      {STIKI Malang\\
+? 
+! Argument of \\ has an extra }.
+<inserted text> 
+                \par 
+<to be read again> 
+                   }
+l.23 Email: frendi@stiki.ac.id}
+                               
+? 
+Runaway argument?
+ Malang, Indonesia\\ Email: frendi@stiki.ac.id
+! Paragraph ended before \\ was complete.
+<to be read again> 
+                   \par 
+<to be read again> 
+                   }
+l.23 Email: frendi@stiki.ac.id}
+                               
+? 
+! Undefined control sequence.
+l.24 \and
+         
+? 
+! Undefined control sequence.
+l.25 \IEEEauthorblockN
+                      {Mukhlis Amien}
+? 
+! Undefined control sequence.
+l.26 \IEEEauthorblockA
+                      {STIKI Malang\\
+? 
+! Argument of \\ has an extra }.
+<inserted text> 
+                \par 
+<to be read again> 
+                   }
+l.28 Email: amien@stiki.ac.id}
+                              
+? 
+Runaway argument?
+ Malang, Indonesia\\ Email: amien@stiki.ac.id
+! Paragraph ended before \\ was complete.
+<to be read again> 
+                   \par 
+<to be read again> 
+                   }
+l.28 Email: amien@stiki.ac.id}
+                              
+? 
+! Undefined control sequence.
+l.29 \and
+         
+? 
+! Undefined control sequence.
+l.30 \IEEEauthorblockN
+                      {Jozua Ferjanus Palandi}
+? 
+! Undefined control sequence.
+l.31 \IEEEauthorblockA
+                      {STIKI Malang\\
+? 
+! Argument of \\ has an extra }.
+<inserted text> 
+                \par 
+<to be read again> 
+                   }
+l.33 Email: jozuafp@stiki.ac.id}
+                                }
+? 
+Runaway argument?
+ Malang, Indonesia\\ Email: jozuafp@stiki.ac.id
+! Paragraph ended before \\ was complete.
+<to be read again> 
+                   \par 
+<to be read again> 
+                   }
+l.33 Email: jozuafp@stiki.ac.id}
+                                }
+? 
+! Undefined control sequence.
+l.36 \maketitle
+               
+? 
+! Undefined control sequence.
+l.39 \begin
+           {abstract}
+? 
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] )</usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on main.pdf (1 page, 22488 bytes).
+PDF statistics:
+ 12 PDF objects out of 1000 (max. 8388607)
+ 7 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
