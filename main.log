@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.11.7)  15 JUN 2017 19:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.11.7)  15 JUN 2017 22:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -234,8 +234,7 @@ File: lstmisc.sty 2002/04/01 1.0 (Carsten Heinz)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2015/06/04 1.6 listings configuration
-))
-No file main.aux.
+)) (./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
@@ -250,6 +249,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
+
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count131
@@ -312,13 +312,9 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 
-LaTeX Warning: Citation `def:feilhauer' on page 1 undefined on input line 55.
+LaTeX Warning: Citation `kaur2010component' on page 1 undefined on input line 5
+7.
 
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
-
-]
-** WARNING: \IEEEbiography is locked out when in conference mode (line 95).
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -330,33 +326,31 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[2
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
 
 ] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 4013 strings out of 494953
- 59825 string characters out of 6180977
- 126971 words of memory out of 5000000
- 7267 multiletter control sequences out of 15000+600000
- 34114 words of font info for 63 fonts, out of 8000000 for 9000
+ 4034 strings out of 494953
+ 60023 string characters out of 6180977
+ 126974 words of memory out of 5000000
+ 7276 multiletter control sequences out of 15000+600000
+ 39434 words of font info for 75 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
- 38i,6n,42p,1067b,235s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,6n,42p,1067b,214s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on main.pdf (2 pages, 56090 bytes).
+Output written on main.pdf (1 page, 55471 bytes).
 PDF statistics:
- 28 PDF objects out of 1000 (max. 8388607)
- 19 compressed objects within 1 object stream
+ 25 PDF objects out of 1000 (max. 8388607)
+ 17 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
