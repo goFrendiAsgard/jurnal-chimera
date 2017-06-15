@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.11.7)  15 JUN 2017 22:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.11.7)  15 JUN 2017 22:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -315,6 +315,10 @@ e
 LaTeX Warning: Citation `kaur2010component' on page 1 undefined on input line 5
 7.
 
+(./main.bbl [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+
+])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -326,8 +330,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
+[2
 
 ] (./main.aux)
 
@@ -335,8 +338,8 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4034 strings out of 494953
- 60023 string characters out of 6180977
+ 4037 strings out of 494953
+ 60045 string characters out of 6180977
  126974 words of memory out of 5000000
  7276 multiletter control sequences out of 15000+600000
  39434 words of font info for 75 fonts, out of 8000000 for 9000
@@ -347,10 +350,10 @@ e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on main.pdf (1 page, 55471 bytes).
+Output written on main.pdf (2 pages, 58925 bytes).
 PDF statistics:
- 25 PDF objects out of 1000 (max. 8388607)
- 17 compressed objects within 1 object stream
+ 28 PDF objects out of 1000 (max. 8388607)
+ 19 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

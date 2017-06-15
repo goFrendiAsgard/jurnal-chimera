@@ -54,12 +54,12 @@
   year          = {2003}
 }
 
-@Misc{            beakernotebook,
-  title         = {Beaker Notebook},
-  author        = {Two Sigma Open Source, LLC ("TSOS")},
-  howpublished  = {\url{http://beakernotebook.com/index}},
-  note          = {Accessed: 2017-06-30}
-}
+%@Misc{            beakernotebook,
+%  title         = {Beaker Notebook},
+%  author        = {Two Sigma Open Source, LLC ("TSOS")},
+%  howpublished  = {\url{http://beakernotebook.com/index}},
+%  note          = {Accessed: 2017-06-30}
+%}
 
 @Article{         prechelt2000empirical,
   title         = {An empirical comparison of seven programming languages},
