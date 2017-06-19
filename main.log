@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.6.16)  19 JUN 2017 11:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.6.16)  19 JUN 2017 12:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -315,14 +315,14 @@ e
 
 
 ] (./main.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 35--37
-[]\OT1/ptm/m/n/8 L. T. Two Sigma Open Source, ``Dos 7 com-mand,''
+Overfull \hbox (26.0516pt too wide) in paragraph at lines 35--37
+[]\OT1/ptm/m/n/8 B. Wat-son, ``Dos 7 com-mand,'' http://www.lagmonster.org/docs
+/DOS7/pipes.html,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 35--37
-\OT1/ptm/m/n/8 http://www.lagmonster.org/docs/DOS7/pipes.html, ac-cessed: 2017-
-
+Underfull \hbox (badness 10000) in paragraph at lines 49--51
+[]\OT1/ptm/m/n/8 L. T. Two Sigma Open Source, ``Beaker note-book,''
  []
 
 )
@@ -337,9 +337,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[2
-
-] (./main.aux) ) 
+[2] (./main.aux) ) 
 Here is how much of TeX's memory you used:
  4028 strings out of 493029
  60045 string characters out of 6136234
@@ -347,13 +345,13 @@ Here is how much of TeX's memory you used:
  7528 multiletter control sequences out of 15000+600000
  34143 words of font info for 63 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 38i,6n,42p,1398b,207s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</us
-r/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
-imes/utmri8a.pfb>
-Output written on main.pdf (2 pages, 62989 bytes).
+ 38i,6n,42p,236b,207s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</
+usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
+/times/utmri8a.pfb>
+Output written on main.pdf (2 pages, 65534 bytes).
 PDF statistics:
  28 PDF objects out of 1000 (max. 8388607)
  19 compressed objects within 1 object stream
