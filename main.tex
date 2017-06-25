@@ -50,7 +50,9 @@ CORBA, XML-RPC, and REST. Our framework, Chimera, was built on top of Node JS.
 Chimera allows developer to build pipe flow in a chain (a YAML formatted file) 
 as well as defining global variables. Compared to UNIX named and unnamed pipe, 
 this format is easier and more flexible. On the other hand, unlike XML-RPC, 
-REST, and CORBA, chimera doesn't enforce users to use http protocol.
+REST, and CORBA, chimera doesn't enforce users to use special protocol such as 
+HTTP (except for distributed computing scenario). Nor it require the components
+to be aware that they works on top of the framework.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -61,41 +63,129 @@ Chimera, Language Agnostic, Component-Based Software Engineering, CBSE, Node JS,
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
+
 Component based software development approach is based on the idea to develop 
 software systems by selecting appropriate off-the shelf components and then to 
 assemble them with a well-defined software architecture \cite{kaur2010component}.
 
-In order to implement component-based software engineering (CBSE), several
-different approaches has been performed by various companies and individuals. 
-The very first implementation was UNIX pipe mechanism \cite{mcilroy1968mass}. 
+In order to implement component-based software engineering (CBSE), several 
+approaches has beeen performed. The earliest attempt was UNIX pipe mechanism 
+\cite{mcilroy1968mass}. Pipe mechanism was not the only attempt to achieve CBSE.
+The more modern approaches including XML-RPC \cite{xmlrpc} and JSON-RPC \cite{jsonrpc}. 
+Later, Object Management Group (OMG) introduced a new standard named CORBA (Common
+Object Request Broker Architecture) \cite{corba}. Another interesting approach was 
+introduced by Two Sigma Open Source. Two Sigma created a platform known as Beaker
+Notebook \cite{beakernotebook}. Beaker Notebook is mainly used for research purpose. 
+On 2016, Feilhauer and Sobotka introduce another platform called DEF 
+\cite{feilhauer2016def}.
+
+Aside from Unix Pipe, all other mechanism require the components to be aware that 
+they are part of the framework. This means that you cannot use old programs (e.g:
+\lit{cal} and \lit{cowsay}) as XML-RPC or CORBA component. At least additional layer
+and adjustment has to be built.
+
+CORBA, XML-RPC, and JSON-RPC also needs HTTP protocol since they were designed for 
+in client-server architecture. It imply that you need to build a web server in order
+to use the mechanisms. However, in any use case that only need a single computer,
+this is not ideal.
+
+Considering the advantages and disadvantages of those early approaches, in this paper, 
+we introduce a new CBSE framework named Chimera. This framework is much simpler since
+HTTP is only required for distributed computation. Chimera also use CLI mechanism that
+works in almost all OS and most programming language.
+The only dependency of Chimera are NodeJS and several NPM packages.
+
+\section{Previous Research}
+
+In this section we will have an indepth discussion about UNIX Pipe, XML-RPC, CORBA, and
+DEF.
+
+
+\subsection{UNIX Pipe}
+
+The very first implementation of CBSE was UNIX pipe mechanism \cite{mcilroy1968mass}. 
 UNIX pipe allows engineer to pass output of a single program as an input of 
 another program. Since a lot of server is UNIX or linux based, this pipe 
 mehanism availability is very high. Even DOS also provide similar mechanism 
-\cite{dos7command}. Beside of it's high availability, at some point, UNIX pipe 
-also support parallel processing through named-pipe mechanism. The named-pipe 
-mechanism can be used to provide cheap parallel processing 
-\cite{conway2003parallel}. Although pipe mechanism provide high availability 
-and capability, it has several limitations. For example, it needs external 
-file as temporary container. The external file has to be deleted once the 
-operation performed. Since this approach is not straight forward, some effort 
-is needed in order to undestand or to build a named-pipe based computation. By 
-it's nature, pipe mechanism itself has a drawback. Pipe mechanism assume a 
-program's standard output turns into another program's standard output. Thus, 
-in case of a program provide more than a single outputs or need to get several 
-inputs, extra adjustment is needed so that the programs fit the mechanism.
+\cite{dos7command}.
 
-Beside UNIX pipe mechanism, another common approach to achieve CBSE has been 
-introduced. The common approach usually involve CORBA, XML RPC, and RestFul 
-architecture. Another interesting approach was named DEF - A programming 
-language agnostic framework and execution environment for the parallel 
-execution of library routines \cite{feilhauer2016def}. DEF focus on parallel 
-processing by enabling shared memory and message passing. DEF needs several 
-components, using JSON as data exchange format. Compared to CORBA, Matlab, and 
-Parallel Fortran is better in term of parallelism and language agnosticism. 
-CORBA for example, doesn't support matlab and octave \cite{feilhauer2016def}. 
+Beside of it's high availability, at some point, UNIX pipe also support parallel
+processing through named-pipe mechanism. The named-pipe mechanism can be used to 
+provide cheap parallel processing \cite{conway2003parallel}. 
+
+Although pipe mechanism provide high availability and capability, 
+it has several limitations. For example, it needs external file as temporary 
+container. The external file has to be deleted once the operation performed. 
+This approach is not straight forward, thus, some efforts is needed in order to 
+to build a working named-pipe based computation. 
+
+By design, pipe mechanism assume a program's standard output turns into another 
+program's standard output. For simple use cases, this might be the best approach. 
+However, at some point, when the program become more complicated, memory sharing 
+and network access might be needed. Using a mere pipe mechanism to support those 
+requirement is either hard or impossible.
+
+
+\subsection{XML-RPC and JSON-RPC}
+
+XML-RPC is a spec and a set of implementations that allow software running on 
+disparate operating systems, running in different environments to make procedure 
+calls over the Internet. XML-RPC using HTTP as the transport and XML as the encoding. It is designed to be as simple as possible, while allowing complex data structures to be transmitted, processed and returned \cite{xmlrpc}.
+
+JSON-RPC is lightweight remote procedure call protocol similar to XML-RPC 
+\cite{jsonrpc}. The main difference between XML-RPC and JSON-RPC is the data transfer
+format. In most cases, JSON is more lightweight compared to XML.
+
+XML-RPC and JSON-RPC are heavily depend on HTTP for inter-process-communication 
+protocol. This is ideal for client-server architecture as HTTP is quite common and
+easy to be implemented.
+
+As implied by their name, XML-RPC and JSON-RPC are basically another implementation
+of RPC (Remote Procedure Call). Implementing XML or JSON-RPC means that you can 
+separate your program's component and put them accross different computers. On the
+other hand, your components can be shared among different programs. The sensible
+code separation and reusability is the advantage of XML and JSON RPC.
+
+
+\subsection{SOAP}
+
+SOAP stands for Simple Object Access Protocol. SOAP is a lightweight protocol 
+intended for exchanging structured information in a decentralized, distributed 
+environment \cite{soap}. SOAP was built on top of XML-RPC. It uses XML format as 
+well as HTTP protocol.
+
+SOAP was built with Object Oriented Programming in mind. At that time, OOP is
+quite popular.
+
+\subsection{CORBA}
+
+The Common Object Request Broker Architecture is a standard defined by the Object 
+Management Group designed to facilitate the communication of systems that are 
+deployed on diverse platforms. CORBA enables collaboration between systems on 
+different operating systems, programming languages, and computing hardware 
+\cite{corba}. 
+
+CORBA was built by OMG, which is also responsible for creating UML standard.
+
+
+\subsection{REST}
+\blindtext
+
+\subsection{DEF}
+
+DEF - A programming language agnostic framework and execution environment 
+for the parallel execution of library routines \cite{feilhauer2016def}. 
+DEF focus on parallel processing by enabling shared memory and message passing. 
+DEF needs several components, using JSON as data exchange format. 
+Compared to CORBA, Matlab, and Parallel Fortran, DEF is better in term of 
+parallelism and language agnosticism. CORBA for example, doesn't support matlab and 
+octave \cite{feilhauer2016def}. 
+
 However, DEF still depend on REST for communication. Consequently, in order to 
 build DEF architecture, a web server is needed. Also, each component should 
 follow certain rules in order to be able to communicate in DEF protocol.
+
+\subsection{Beaker Notebook}
 
 Beaker Notebook \cite{beakernotebook} is also considered as an interesting 
 approach of CBSE. The platform was developed by Two Sigma Open Source and 
@@ -104,37 +194,14 @@ global variables. The global variables is accessible by any pieces of program
 in a certain notebook. However, extra works is needed so that a programming 
 language is available in a notebook.
 
+\section{Our Approach}
+
 Based on previous approaches, it seems that Beaker Notebook and DEF is better 
 in terms of language agnoticism and shared memory. However, UNIX pipe is 
 better in terms of availability and architecture independence.
 
-In this paper, we propose a novel approach of CBSE. We name it Chimera. 
-Chimera is an agnostic language component based framework using NodeJS and 
-CLI. Chimera doesn't require specific architecture. Any program works in CLI 
-will also works in Chimera. No adjustment effort is needed. Chimera also 
-support sharing memory mechanism to share global variables. Thus, it also 
-allows developer to define straight-forward process flow.
-
-\section{Previous Research}
-\blindtext
-
-\subsection{UNIX Pipe}
-\blindtext
-
-\subsection{CORBA and XML-RPC}
-\blindtext
-
-\subsection{DEF}
-\blindtext
-
-\subsection{Beaker Notebook}
-\blindtext
-
-\section{Our Approach}
-\blindtext
-
 \section{Conclusion}
-\blindtext
+Chimera 
 
 %\appendices
 %\section{Proof of the First Zonklar Equation}

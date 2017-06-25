@@ -31,6 +31,25 @@ M.~D. McIlroy, J.~Buxton, P.~Naur, and B.~Randell, ``Mass-produced software
   components,'' in \emph{Proceedings of the 1st International Conference on
   Software Engineering, Garmisch Pattenkirchen, Germany}, 1968, pp. 88--98.
 
+\bibitem{xmlrpc}
+Trac, ``Json-rpc,'' \url{http://json-rpc.org}, accessed: 2017-05-30.
+
+\bibitem{jsonrpc}
+I.~UserLand~Software, ``Xml-rpc.com,'' \url{http://xmlrpc.scripting.com},
+  accessed: 2017-05-30.
+
+\bibitem{corba}
+O.~M. Group, ``Corba,'' \url{http://www.corba.org/}, accessed: 2017-05-30.
+
+\bibitem{beakernotebook}
+L.~T. Two Sigma Open~Source, ``Beaker notebook,''
+  \url{http://beakernotebook.com/index}, accessed: 2017-05-30.
+
+\bibitem{feilhauer2016def}
+T.~Feilhauer and M.~Sobotka, ``Def-a programming language agnostic framework
+  and execution environment for the parallel execution of library routines,''
+  \emph{Journal of Cloud Computing}, vol.~5, no.~1, p.~20, 2016.
+
 \bibitem{dos7command}
 B.~Watson, ``Dos 7 command,''
   \url{http://www.lagmonster.org/docs/DOS7/pipes.html}, accessed: 2017-06-19.
@@ -39,14 +58,5 @@ B.~Watson, ``Dos 7 command,''
 T.~Conway, ``Parallel processing on the cheap: Using unix pipes to run sas
   programs in parallel. sas users group international (sugi 28) proceedings.
   march 30--april 2, 2003. seattle, washington,'' 2003.
-
-\bibitem{feilhauer2016def}
-T.~Feilhauer and M.~Sobotka, ``Def-a programming language agnostic framework
-  and execution environment for the parallel execution of library routines,''
-  \emph{Journal of Cloud Computing}, vol.~5, no.~1, p.~20, 2016.
-
-\bibitem{beakernotebook}
-L.~T. Two Sigma Open~Source, ``Beaker notebook,''
-  \url{http://beakernotebook.com/index}, accessed: 2017-05-30.
 
 \end{thebibliography}

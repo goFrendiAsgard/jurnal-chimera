@@ -1,0 +1,14 @@
+<W>2017-06-19 14:36:23.398 Initializing settings from /home/gofrendi/.murmurd/murmur.ini (basepath /home/gofrendi/.murmurd)
+<W>2017-06-19 14:36:23.399 Meta: TLS cipher preference is "ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:AES256-SHA:AES128-SHA"
+<W>2017-06-19 14:36:23.399 OpenSSL: OpenSSL 1.0.2g  1 Mar 2016
+<W>2017-06-19 14:36:23.494 ServerDB: Opened SQLite database /home/gofrendi/Dropbox/jurnal-chimera/murmur.sqlite
+<W>2017-06-19 14:36:23.495 Generating new tables...
+<W>2017-06-19 14:36:24.222 Murmur 1.2.12 (1.2.12-1ubuntu1) running on X11: Ubuntu 16.04.2 LTS: Booting servers
+<W>2017-06-19 14:36:25.210 1 => Password for 'SuperUser' set to 'DQRldTt51'
+<W>2017-06-19 14:36:26.489 1 => Server: TCP Listen on [::]:64738 failed: The bound address is already in use
+<W>2017-06-19 14:36:26.657 1 => Stopped
+<W>2017-06-19 23:04:54.093 Caught SIGHUP, will reopen /home/gofrendi/Dropbox/jurnal-chimera/murmur.log
+<W>2017-06-19 23:04:56.023 Log rotated successfully
+<C>2017-06-19 23:04:56.023 Caught SIGTERM, exiting
+<W>2017-06-19 23:04:56.023 Killing running servers
+<W>2017-06-19 23:04:56.023 Shutting down
