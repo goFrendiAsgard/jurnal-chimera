@@ -15,7 +15,7 @@
 
 \begin{document}
 
-\title{Chimera: Agnostic Language Component Based Framework using NodeJS and CLI}
+\title{Chimera - Agnostic Language Framework using NodeJS and Command Line Arguments}
 
 \author{\IEEEauthorblockN{Go Frendi Gunawan}
 \IEEEauthorblockA{STIKI Malang\\ Malang, Indonesia\\
@@ -81,7 +81,7 @@ On 2016, Feilhauer and Sobotka introduce another platform called DEF
 
 Aside from Unix Pipe, all other mechanism require the components to be aware that 
 they are part of the framework. This means that you cannot use old programs (e.g:
-\lit{cal} and \lit{cowsay}) as XML-RPC or CORBA component. At least additional layer
+{\it cal} and {\it cowsay}) as XML-RPC or CORBA component. At least additional layer
 and adjustment has to be built.
 
 CORBA, XML-RPC, and JSON-RPC also needs HTTP protocol since they were designed for 
@@ -97,8 +97,8 @@ The only dependency of Chimera are NodeJS and several NPM packages.
 
 \section{Previous Research}
 
-In this section we will have an indepth discussion about UNIX Pipe, XML-RPC, CORBA, and
-DEF.
+In this section we will have an indepth discussion about previous CBSE implementation 
+preceeding Chimera.
 
 
 \subsection{UNIX Pipe}
@@ -109,67 +109,197 @@ another program. Since a lot of server is UNIX or linux based, this pipe
 mehanism availability is very high. Even DOS also provide similar mechanism 
 \cite{dos7command}.
 
-Beside of it's high availability, at some point, UNIX pipe also support parallel
+Pipe mechanism works by letting a program's standard output being used as another
+program's standard input. By putting several programs into a single pipeline, we can
+make a more complex process as shown in figure ~\ref{fig:unixPipe}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.3\textwidth]
+		{images/Pipeline.jpg}
+	\caption{Unix Pipeline Mechanism}
+	\label{fig:unixPipe}
+\end{figure}
+
+For more explanation, we provide a simple test case. Consider two different program,
+{\it cal} and {\it cowsay}. Given no argument, {\it cal} will show you current month's
+calendar. On the other hand, given a single argument, {\it cowsay} will show the 
+argument alongside an ASCII art of a cow.
+
+\begin{lstlisting}[caption=cal and cowsay, label=calAndCowsay, language=bash, basicstyle=\small, breaklines=true]
+#! cal
+     June 2017        
+Su Mo Tu We Th Fr Sa  
+             1  2  3  
+ 4  5  6  7  8  9 10  
+11 12 13 14 15 16 17  
+18 19 20 21 22 23 24  
+25 26 27 28 29 30     
+                      
+#! cowsay "hello"
+ _______
+< hello >
+ -------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+\end{lstlisting}
+
+Unix pipe mechanism allows you to combine those two programs. For example, if you
+want the output of {\it cal} become the input of {\it cowsay}, you can use pipe
+command as shown in listing ~\ref{unnamedPipeExample}
+
+\begin{lstlisting}[caption=Unnamed pipe example, label=unnamedPipeExample, language=bash, basicstyle=\small, breaklines=true]
+#! cal | cowsay
+ ________________________________________
+/  June 2017 Su Mo Tu We Th Fr Sa        \
+|                                        |
+| 1 2 3                                  |
+|                                        |
+| 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 |
+\ 19 20 21 22 23 24 25 26 27 28 29 30    /
+ ----------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+\end{lstlisting}
+
+
+Beside of it's high availability and simplicity, UNIX pipe also support parallel
 processing through named-pipe mechanism. The named-pipe mechanism can be used to 
 provide cheap parallel processing \cite{conway2003parallel}. 
 
+In listing ~\ref{namedPipeExample} we show a simple named-pipe mechanism. First, we make
+a named pipe called {\it backpipe} by using {\it mkfifo} command. Next, we redirect
+standard output of {\it cal} and {\it cowsay} into {\it backpipe}. Finally, we show
+the content of the {\it backpipe} by using {\it cat} command.
+
+\begin{lstlisting}[caption=Named pipe example, label=namedPipeExample, language=bash, basicstyle=\small, breaklines=true]
+#! mkfifo backpipe 
+
+#! cal > backpipe | cowsay hello > backpipe | cat backpipe
+     June 2017        
+Su Mo Tu We Th Fr Sa  
+             1  2  3  
+ 4  5  6  7  8  9 10  
+11 12 13 14 15 16 17  
+18 19 20 21 22 23 24  
+25 26 27 28 29 30     
+                     
+ _______
+< hello >
+ -------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+\end{lstlisting}
+
 Although pipe mechanism provide high availability and capability, 
-it has several limitations. For example, it needs external file as temporary 
+it has several limitations. For example, named-pipe needs external file as temporary 
 container. The external file has to be deleted once the operation performed. 
 This approach is not straight forward, thus, some efforts is needed in order to 
 to build a working named-pipe based computation. 
 
-By design, pipe mechanism assume a program's standard output turns into another 
-program's standard output. For simple use cases, this might be the best approach. 
+For simple use cases involving a single computer, pipe mechanisme might be ideal. 
 However, at some point, when the program become more complicated, memory sharing 
 and network access might be needed. Using a mere pipe mechanism to support those 
 requirement is either hard or impossible.
 
+\subsection{CORBA}
 
-\subsection{XML-RPC and JSON-RPC}
+From CORBA official website, CORBA is defined as standard created by the Object 
+Management Group designed to facilitate the communication of systems 
+that are deployed on diverse platforms \cite{corba}. CORBA 1.0 was released on August 
+1991. The last version, CORBA 3.3 was released on November 2012 \cite{corbaspec}.
+
+Over a long time of development and adjustment, CORBA is a mature specification.
+It is heavily affected by object oriented paradigm. Since the consortium that backed
+CORBA was also responsible for creating UML (Unified Modelling Language), we can assume
+that CORBA also followed several aspects of best practices.
+
+The main component of CORBA is the Object Request Broker (ORB). ORB act as bridge 
+between client and service provider. The service provider (server) provide an 
+implementation of an object. While the client can be a user interface that depend on
+the service provided by the server. Both, client and server needs to agree about the
+object structure. This agreement is written in an Interface Description Language (IDL).
+The IDL in server side is called skeleton, while the IDL in client side is called stub.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.3\textwidth]
+		{images/Orb.jpg}
+	\caption{Object Request Broker}
+	\label{fig:orb}
+\end{figure}
+
+Figure ~\ref{fig:orb} shows the interaction between ORB, server, and client.
+IDL can be written in Java, C++, or any other language, depend on the implementation of
+the ORB.
+
+An implementation example of CORBA can be found in . Listing ~\ref{corbaIDLExample} show an IDL of an object.
+
+\begin{lstlisting}[caption=CORBA IDL Example in C++, label=corbaIDLExample, language=c, basicstyle=\small, breaklines=true]
+module Finance {
+  typedef sequence<string> StringSeq;
+  struct AccountDetails {
+    string     name;
+    StringSeq  address;
+    long       account_number;
+    double     current_balance;
+  };
+  exception insufficientFunds { };
+  interface Account {
+    void deposit(in double amount);
+    void withdraw(in double amount) raises(insufficientFunds);
+    readonly attribute AccountDetails details;
+  };
+};
+\end{lstlisting}
+
+Compared to UNIX Pipe, CORBA is more feature rich and complex. The developer needs to 
+embrace OOP paradigm as well as being familiar with IDL and the CORBA architecture. 
+Despite of it's language agnoticism, some non OOP language (e.g: Matlab and GNU Octave) 
+is not supported by CORBA \cite{feilhauer2016def}. CORBA also suffer of several 
+criticism \cite{henning2006rise}. Even OOP as the foundation of CORBA, also face several 
+critics \cite{hadar2013intuition} regardless of it's popularity.
+
+
+\subsection{XML-RPC, SOAP, and JSON-RPC}
 
 XML-RPC is a spec and a set of implementations that allow software running on 
 disparate operating systems, running in different environments to make procedure 
 calls over the Internet. XML-RPC using HTTP as the transport and XML as the encoding. It is designed to be as simple as possible, while allowing complex data structures to be transmitted, processed and returned \cite{xmlrpc}.
-
-JSON-RPC is lightweight remote procedure call protocol similar to XML-RPC 
-\cite{jsonrpc}. The main difference between XML-RPC and JSON-RPC is the data transfer
-format. In most cases, JSON is more lightweight compared to XML.
-
-XML-RPC and JSON-RPC are heavily depend on HTTP for inter-process-communication 
-protocol. This is ideal for client-server architecture as HTTP is quite common and
-easy to be implemented.
-
-As implied by their name, XML-RPC and JSON-RPC are basically another implementation
-of RPC (Remote Procedure Call). Implementing XML or JSON-RPC means that you can 
-separate your program's component and put them accross different computers. On the
-other hand, your components can be shared among different programs. The sensible
-code separation and reusability is the advantage of XML and JSON RPC.
-
-
-\subsection{SOAP}
 
 SOAP stands for Simple Object Access Protocol. SOAP is a lightweight protocol 
 intended for exchanging structured information in a decentralized, distributed 
 environment \cite{soap}. SOAP was built on top of XML-RPC. It uses XML format as 
 well as HTTP protocol.
 
-SOAP was built with Object Oriented Programming in mind. At that time, OOP is
-quite popular.
+JSON-RPC is lightweight remote procedure call protocol similar to XML-RPC 
+\cite{jsonrpc}. The main difference between XML-RPC and JSON-RPC is the data transfer
+format. In most cases, JSON is more lightweight compared to XML.
 
-\subsection{CORBA}
+XML-RPC, SOAP, and JSON-RPC are heavily depend on HTTP for inter-process-communication 
+protocol. This is ideal for client-server architecture as HTTP is quite common and
+easy to be implemented.
 
-The Common Object Request Broker Architecture is a standard defined by the Object 
-Management Group designed to facilitate the communication of systems that are 
-deployed on diverse platforms. CORBA enables collaboration between systems on 
-different operating systems, programming languages, and computing hardware 
-\cite{corba}. 
+Those three methods are basically another implementation of RPC (Remote Procedure Call). 
+Compared to CORBA, these three methods are more flexible. With the exception of SOAP,
+they don't enforce developer to embrace OOP paradigm.
 
-CORBA was built by OMG, which is also responsible for creating UML standard.
-
-
-\subsection{REST}
-\blindtext
+In terms of language agnoticism, XML-RPC and JSON-RPC support any language that can
+access HTTP and parse/create the data format. However, in order to use these protocols,
+a developer should be aware that the components they built will works as a part of the
+bigger system. Tools or programs that were built without this consideration will need
+some adjustment or additional layers in order to make them works with the protocol.
+For example, using {\it{cowsay}} or {\it{cal}} as components of XML-RPC might require
+developer to build another program to catch the output and wrap it in XML envelope.
 
 \subsection{DEF}
 
@@ -181,27 +311,67 @@ Compared to CORBA, Matlab, and Parallel Fortran, DEF is better in term of
 parallelism and language agnosticism. CORBA for example, doesn't support matlab and 
 octave \cite{feilhauer2016def}. 
 
-However, DEF still depend on REST for communication. Consequently, in order to 
-build DEF architecture, a web server is needed. Also, each component should 
-follow certain rules in order to be able to communicate in DEF protocol.
+However, DEF still depend on HTTP for inter process communication. Consequently, 
+in order to build DEF architecture, a web server is needed. Also, the developer needs 
+to make sure that each components aware of the architecture. As in CORBA, XML-RPC, 
+SOAP, and JSON-RPC, additional layer might be needed to make use of old components.
 
 \subsection{Beaker Notebook}
 
 Beaker Notebook \cite{beakernotebook} is also considered as an interesting 
 approach of CBSE. The platform was developed by Two Sigma Open Source and 
-mainly used for research use. Like DEF, beaker has a shared storage containing 
-global variables. The global variables is accessible by any pieces of program 
-in a certain notebook. However, extra works is needed so that a programming 
-language is available in a notebook.
+mainly used for research use. 
 
-\section{Our Approach}
+Beaker provides native autotranslation that lets a developer declare specific 
+variables in a cell in one language, then access these seamlessly in a 
+different cell and language.
 
-Based on previous approaches, it seems that Beaker Notebook and DEF is better 
-in terms of language agnoticism and shared memory. However, UNIX pipe is 
-better in terms of availability and architecture independence.
+Using Beaker Notebook, a developer can access a global inter-language variable
+from different cells. The cells can also be written in any language supported.
+
+For example, in listing ~\ref{beakerPython}, we create a 6 by 4 table populated with
+random numbers. The table is then saved as global variable df. 
+Later in listing ~\ref{beakerR}, we load the data and show it.
+
+\begin{lstlisting}[caption=Beaker Python Cell Example, label=beakerPython, language=python, basicstyle=\small, breaklines=true]
+import pandas
+beaker.df = pandas.DataFrame(np.random.randn(6, 4), columns = list('ABCD'))
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Beaker R Cell Example, label=beakerR, language=R, basicstyle=\small, breaklines=true]
+beaker::get('df')
+\end{lstlisting}
+
+Beaker notebook is good for prototyping. It also has a very simple API compared to
+CORBA or XML-RPC. However, it still require the developer to add additional layer
+in order to use old components like {\it cal} or {\it cowsay}
+
+
+\section{Chimera}
+
+From the previous section we conclude that Unix Pipe Mechanism was the simplest one
+despite of it's lack of features. Sharing memory mechanism that was demonstrated in
+Beaker Notebook might be a key for better and simpler mechanism.
+
+Our goal is to make a very simple framework that is truly language agnostic. A framework
+that also play nice with old components. This framework should not enforce developer to
+embrace any particular programming paradigm.
+
+\subsection{YAML Chain}
+\blindtext
+
+\subsection{JSON Formatted Temporary Global Storage}
+\blindtext
+
+\subsection{Parallel Processing}
+\blindtext
+
+\subsection{Web Service}
+\blindtext
+
 
 \section{Conclusion}
-Chimera 
+\blindtext 
 
 %\appendices
 %\section{Proof of the First Zonklar Equation}
