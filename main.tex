@@ -350,12 +350,21 @@ in order to use old components like {\it cal} or {\it cowsay}
 \section{Chimera}
 
 From the previous section we conclude that Unix Pipe Mechanism was the simplest one
-despite of it's lack of features. Sharing memory mechanism that was demonstrated in
-Beaker Notebook might be a key for better and simpler mechanism.
+despite of it's lack of features. We also notice that Beaker Notebook's like memory-
+sharing mechanism is much simpler compared to CORBA and other network-based protocols.
 
 Our goal is to make a very simple framework that is truly language agnostic. A framework
-that also play nice with old components. This framework should not enforce developer to
-embrace any particular programming paradigm.
+that also play nice with old components and not enforce developer to embrace any 
+particular programming paradigm. Also, we try to avoid making unnecessary new standard.
+By make use of tecnologies most developers familiar with, we hope the adaptation is
+going to be easier.
+
+We assume that most programming languages are supporting command line interface and
+command line arguments. By creating a framework that depend on command line protocol,
+we aim on maximum language agnosticism with less effort.
+
+We already publish Chimera as NPM package. It is accessible through 
+https://www.npmjs.com/package/chimera-framework.
 
 \subsection{YAML Chain}
 \blindtext
