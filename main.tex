@@ -444,23 +444,167 @@ provided by node-cmd in order to execute other programs through CLI mechanism.
 Js-yaml is used for YAML parsing. At last, we need path and process to determine 
 absolute path of a file as well as changing directory and retrieving input arguments.
 
-\subsection{YAML Chain}
+\subsection{YAML for Defining Chain}
 
 YAML (YAML Ain't Markup Language) is a human friendly data serialization standard for 
-all programming languages \cite{yaml}.
+all programming languages \cite{yaml}. YAML standard was built in 2001. Unlike JSON,
+YAML rely heavily on indentation. Although the size is bigger compared to JSON, YAML
+is very readable and commonly used for configuration.
 
-\subsection{JSON Formatted Temporary Global Storage}
-\blindtext
+At the beginning Chimera's chain file was intended to use JSON format. However, in
+a very short time, we realize that using JSON format might not be a good decision since
+the developers has to be very careful with comma and curly braces. Another disadvantage
+of JSON is it doesn't provide any intuitive way to add comments, which is quite
+essential in writing algorithms.
 
-\subsection{Parallel Processing}
-\blindtext
+Listing ~\ref{yamlChainExample} is the example of our YAML formatted chain file.
 
-\subsection{Web Service}
-\blindtext
+\begin{lstlisting}[caption=YAML Chain Example, label=yamlChainExample, language=yaml, basicstyle=\small, breaklines=true]
+# Location: your-chain-file.yaml 
+# THE MAIN PROCESS: 
+#   f = ((a+b) * (a-b)) + a 
+# THE SUBPROCESSES: 
+#   Process 1: c = a + b (we will use Python) 
+#   Process 2: d = a - b (we will use Java) 
+#   Process 3: e = c * d (we will use PHP) 
+#   Process 4: f = e + a (we will use javascript) 
+# THE FLOW: 
+# Process 1 and Process 2 will be executed in parallel 
+# since they are independent to each other 
+# After Process 1 and Process 2 finished, 
+# Process 3 and Process 4 should be executed in serial  
+# Process 3 depend on both Process 1 and 2, and Process 4 depend on Process 3 
+ 
+ins: a,b # The inputs of main process 
+out: f # The outputs of main process 
+series:
+  # Process 1 and 2 
+  - parallel:
+      # Process 1 (in Python) 
+      - ins: a, b
+        out: c
+        command: python programs/add.py
+      - series: # Process 2 (in Java) 
+          # First, compile the source  
+          - javac programs/Substract.java
+          # then run the program 
+          - ins: a, b
+            out: d
+            command: java -cp programs Substract
+  # Process 3 (in PHP) 
+  - ins: c, d
+    out: e
+    command: php programs/multiply.php
+  # Process 4 (in Javascript) 
+  - ins: e, a
+    out: f
+    command: node programs/add.js
+\end{lstlisting}
 
+Semantically, each node in the YAML contains of {\it ins} and {\it out }, assuming
+every program can has more than one inputs but only provide single output. The last
+element of the node is either {\it command}, {\it parallel}, or {\it series}. 
+If the process has no other sub-process, {\it command} is used. Otherwise, if the
+process contains another sub-process, {\it parallel} or {\it series} is used depend
+on the desired execution flow. The best practice is, when two or more processes
+doesn't depend on each other, parallel flow is recommended.
+
+
+\subsection{JSON Format for Temporary Global Storage and Data Transfer}
+
+As we use Node.js, it is natural to also use Javascript Object Notation as Chimera's
+global storage and network data transfer. JSON (JavaScript Object Notation) is a 
+lightweight data-interchange format \cite{json}.
+
+Once the YAML Chain File parsed, Chimera will create several variables in {\it name : 
+value} pairs. For example, after loading YAML in listing ~\ref{yamlChainExample}, the
+global variables will contains JSON object as in listing ~\ref{jsonStorageInitial}.
+
+As the sub-process executed, several others variables will be added as needed. At the
+end of the process, the global storage will contains a, b, c, d, e, and f.
+
+\begin{lstlisting}[caption=Initial content of JSON Storage, label=jsonStorageInitial, language=json, basicstyle=\small, breaklines=true]
+{
+    "a" : 0,
+    "b" : 0,
+    "f" : 0,
+}
+\end{lstlisting}
+
+Not only for temporary storage, we also use JSON for data transfer between 
+Chimera-Sender and Chimera-Service. The data sent to Chimera-Service is shown in listing
+~\ref{jsonRequest}, while the data received by Chimera-Sender is shown in listing
+~\ref{jsonResponse}.
+
+The JSON request to Chimera-Service contains 2 keys. The "chain" is to 
+indicate the remote YAML chain file location, while "input" contains array of inputs.
+
+The JSON response from Chimera-Service contains 3 keys. The "success" is to indicate
+whether the request succeed or failed. "errorMessage" contains the error message, and
+"response" is the response from the server.
+
+\begin{lstlisting}[caption=JSON Request, label=jsonRequest, language=json, basicstyle=\small, breaklines=true] 
+{
+    "chain" : "remote-chain-file.yaml",
+    "input" : [],
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=JSON Response, label=jsonResponse, language=json, basicstyle=\small, breaklines=true]
+{
+    "success" : true,
+    "errorMessage" : "",
+    "response" : "",
+}
+\end{lstlisting}
+
+
+\subsection{Utilities}
+
+Several utilities were built as component of Chimera Framework.
+
+\begin{itemize}
+    \item Chimera-core
+    \item Chimera-eisn
+    \item Chimera-serve
+    \item Chimera-send
+\end{itemize}
+
+Chimera-core is the main component of the framework. User can invoke chimera by
+executing {\it chimera your-chain-file.yaml [input1 [input2] ... ]}. For convenience,
+some shorthand are also provided. For example, you can also call 
+{\it chimera "command:cal"} or even {\it chimera "cal"}.
+
+Chimera-eisn take at least 3 input arguments. The first and the second argument should
+be file name, while the third arguments should be the command. The command will only
+be executed when the first argument's modification date is newer than the second 
+argument. EISN itself is stands for "Execute If Source Newer". This is useful if user
+want to use source code of compiled language as an argument. 
+The typical example is shown in Listing ~\ref{chimeraEisn}
+
+\begin{lstlisting}[caption=Chimera-eisn usage example, label=chimeraEisn, language=yaml, basicstyle=\small, breaklines=true]
+ins: a, b
+out: c
+series:
+    - chimera-eisn add.java add.class javac add
+    - ins: a, b
+      out: c
+      command: java add
+\end{lstlisting}
+
+Chimera-serve is a utility to let several chain file being served by a computer.
+The typical usage of chimera-serve is {\it TIMEOUT=5000 PUBLISHED=. chimera-serve}
+The first two statements are used to define timeout and published directory. Dot means
+current directory. All chain file in published directory is then accessible over
+the network.
+
+Chimera-send is a utility to access chimera service.
+The typical usage of chimera-send is {\it TIMEOUT=5000 chimera-send remoute-chain-file.yaml [input1 [input2] ... ]}
 
 \section{Conclusion}
-\blindtext 
+
+In this paper, we have show a simple language agnostic CBSE Framework. The framework
+is quite simple yet powerful enough for distributed environment.
 
 %\appendices
 %\section{Proof of the First Zonklar Equation}

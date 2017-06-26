@@ -86,4 +86,11 @@ K.~Lei, Y.~Ma, and Z.~Tan, ``Performance comparison and evaluation of web
   International Conference on}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE,
   2014, pp. 661--668.
 
+\bibitem{yaml}
+C.~C. Evans, ``The official yaml website,'' \url{http://yaml.org/}, accessed:
+  2017-05-30.
+
+\bibitem{json}
+E.~International, ``Json,'' \url{http://json.org/}, accessed: 2017-05-30.
+
 \end{thebibliography}
