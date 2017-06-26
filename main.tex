@@ -15,7 +15,8 @@
 
 \begin{document}
 
-\title{Chimera - Agnostic Language Framework using NodeJS and Command Line Arguments}
+\title{Chimera - Simple Agnostic Language Framework using Node.js and Command Line 
+Arguments for Stand Alone and Distributed Computing}
 
 \author{\IEEEauthorblockN{Go Frendi Gunawan}
 \IEEEauthorblockA{STIKI Malang\\ Malang, Indonesia\\
@@ -46,7 +47,7 @@ developer to reuse the component for other use-cases. By using this approach,
 software developer doesn't need to deal with spaghetti code. Several 
 approaches has been developed in order to achieve ideal CBSE. The earliest 
 implementation was UNIX pipe and redirect, while the newer approach including 
-CORBA, XML-RPC, and REST. Our framework, Chimera, was built on top of Node JS. 
+CORBA, XML-RPC, and REST. Our framework, Chimera, was built on top of Node.js. 
 Chimera allows developer to build pipe flow in a chain (a YAML formatted file) 
 as well as defining global variables. Compared to UNIX named and unnamed pipe, 
 this format is easier and more flexible. On the other hand, unlike XML-RPC, 
@@ -57,7 +58,7 @@ to be aware that they works on top of the framework.
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-Chimera, Language Agnostic, Component-Based Software Engineering, CBSE, Node JS, CLI.
+Chimera, Language Agnostic, Component-Based Software Engineering, CBSE, Node.js, CLI.
 \end{IEEEkeywords}
 
 \IEEEpeerreviewmaketitle
@@ -93,7 +94,7 @@ Considering the advantages and disadvantages of those early approaches, in this 
 we introduce a new CBSE framework named Chimera. This framework is much simpler since
 HTTP is only required for distributed computation. Chimera also use CLI mechanism that
 works in almost all OS and most programming language.
-The only dependency of Chimera are NodeJS and several NPM packages.
+The only dependency of Chimera are Node.js and several NPM packages.
 
 \section{Previous Research}
 
@@ -347,7 +348,7 @@ CORBA or XML-RPC. However, it still require the developer to add additional laye
 in order to use old components like {\it cal} or {\it cowsay}
 
 
-\section{Chimera}
+\section{Chimera Architecture}
 
 From the previous section we conclude that Unix Pipe Mechanism was the simplest one
 despite of it's lack of features. We also notice that Beaker Notebook's like memory-
@@ -363,8 +364,77 @@ We assume that most programming languages are supporting command line interface 
 command line arguments. By creating a framework that depend on command line protocol,
 we aim on maximum language agnosticism with less effort.
 
+\begin{figure*}
+	\centering
+	\includegraphics[width=1.0\textwidth]
+		{images/chimera.png}
+	\caption{Architecture of Chimera}
+	\label{fig:chimeraArchitecture}
+\end{figure*}
+
+\section{Chimera Technical Implementation}
+
 We already publish Chimera as NPM package. It is accessible through 
 https://www.npmjs.com/package/chimera-framework.
+
+
+\subsection{Node.js}
+
+Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient \cite{nodejs}. Compared to Python and PHP, Node.js has an overall better performance
+\cite{lei2014performance}.
+
+Node.js has a package-manager named NPM (Node Package Manager). This allows developers
+to use libraries that were already written by other developers. Chimera itself depend
+on several packages:
+
+\begin{description}
+    \item [async]
+        \begin{sloppypar}
+        Since Node.js embrace non-blocking mechanism, The program flow is not
+        logically sequential. Node.js make use of callback mechanism. Consequently,
+        there is no simple way to ensure that a routine has to be executed after another
+        process completed. Async allows us to build the mechanism easier. It support
+        both, sequential and parallel execution.
+        \end{sloppypar}
+
+    \item [express]
+        \begin{sloppypar}
+        Express is de-facto web framework for Node-JS. Since we want to also
+        support HTTP IPC, Express is the most common solution.
+        \end{sloppypar}
+
+    \item [fs-extra]
+        \begin{sloppypar}
+        Fs-extra allows us to perform several file manipulation.
+        \end{sloppypar}
+
+    \item [http]
+        \begin{sloppypar}
+        This package allows us to send HTTP request to another computer.
+        \end{sloppypar}
+
+    \item [js-yaml]
+        \begin{sloppypar}
+        This package is a YAML parser. Although we use JSON as data-transfer
+        format, we think YAML has a cleaner syntax for chain definition.
+        \end{sloppypar}
+
+    \item [node-cmd]
+        \begin{sloppypar}
+        Node-cmd allows us to run a program in CLI manner. This is 
+        essential since our goal is to make a framework that supports CLI arguments.
+        \end{sloppypar}
+
+    \item [path]
+        \begin{sloppypar}
+        This package is mainly used to get file or directory full-path. This
+        is necessary for security purpose since we we want server to only serve chains
+        located in a specific directory.
+        \end{sloppypar}
+
+    \item [process]
+    \item [querystring]
+\end{description}
 
 \subsection{YAML Chain}
 \blindtext

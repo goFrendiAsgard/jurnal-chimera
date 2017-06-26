@@ -76,4 +76,14 @@ I.~Hadar, ``When intuition and logic clash: The case of the object-oriented
 W.~X. P.~W. Group, ``Soap version 1.2,'' \url{https://www.w3.org/TR/soap12},
   accessed: 2017-05-30.
 
+\bibitem{nodejs}
+N.~Foundation, ``Node.js,'' \url{https://nodejs.org/en/}, accessed: 2017-05-30.
+
+\bibitem{lei2014performance}
+K.~Lei, Y.~Ma, and Z.~Tan, ``Performance comparison and evaluation of web
+  development technologies in php, python, and node. js,'' in
+  \emph{Computational Science and Engineering (CSE), 2014 IEEE 17th
+  International Conference on}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE,
+  2014, pp. 661--668.
+
 \end{thebibliography}
