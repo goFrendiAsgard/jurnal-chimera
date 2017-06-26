@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.6.16)  26 JUN 2017 12:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.6.16)  26 JUN 2017 13:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -443,7 +443,7 @@ If that doesn't work, type  X <return>  to quit.
 <images/Orb.jpg, id=11, 322.003pt x 322.806pt>
 File: images/Orb.jpg Graphic file (type jpg)
  <use images/Orb.jpg>
-Package pdftex.def Info: images/Orb.jpg used on input line 237.
+Package pdftex.def Info: images/Orb.jpg used on input line 233.
 (pdftex.def)             Requested size: 157.23152pt x 157.62465pt.
 
 (/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang1.sty
@@ -452,7 +452,7 @@ File: lstlang1 2002/07/31 v1.0d listings language file
 (/usr/share/texmf/tex/latex/fpc-3.0.0/lstmisc.sty
 File: lstmisc.sty 2002/04/01 1.0 (Carsten Heinz)
 ) [2 <./images/Pipeline.jpg>]
-Underfull \hbox (badness 1874) in paragraph at lines 297--304
+Underfull \hbox (badness 1874) in paragraph at lines 293--300
 \OT1/ptm/m/n/10 RPC sup-port any lan-guage that can ac-cess HTTP and
  []
 
@@ -468,11 +468,11 @@ File: lstlang2 2002/07/31 v1.0d listings language file
 (/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang3.sty
 File: lstlang3 2002/07/31 v1.0d listings language file
 ) [3 <./images/Orb.jpg>]
-<images/chimera.png, id=20, 1264.725pt x 506.89375pt>
+<images/chimera.png, id=20, 1264.725pt x 590.205pt>
 File: images/chimera.png Graphic file (type png)
  <use images/chimera.png>
 Package pdftex.def Info: images/chimera.png used on input line 370.
-(pdftex.def)             Requested size: 524.09975pt x 210.05533pt.
+(pdftex.def)             Requested size: 524.09975pt x 244.57928pt.
 
 [4] (./main.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 45--47
@@ -499,24 +499,25 @@ Before submitting the final camera ready copy, remember to:
 
 [5 <./images/chimera.png>] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 5069 strings out of 493029
- 73067 string characters out of 6136234
- 239704 words of memory out of 5000000
- 8514 multiletter control sequences out of 15000+600000
- 37723 words of font info for 73 fonts, out of 8000000 for 9000
+ 5070 strings out of 493029
+ 73081 string characters out of 6136234
+ 239593 words of memory out of 5000000
+ 8515 multiletter control sequences out of 15000+600000
+ 37950 words of font info for 74 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  38i,6n,61p,269b,1276s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/e
 nc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y9.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 255042 bytes).
+y10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+urw/times/utmri8a.pfb>
+Output written on main.pdf (5 pages, 266733 bytes).
 PDF statistics:
- 48 PDF objects out of 1000 (max. 8388607)
- 31 compressed objects within 1 object stream
+ 52 PDF objects out of 1000 (max. 8388607)
+ 34 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

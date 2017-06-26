@@ -85,13 +85,13 @@ they are part of the framework. This means that you cannot use old programs (e.g
 {\it cal} and {\it cowsay}) as XML-RPC or CORBA component. At least additional layer
 and adjustment has to be built.
 
-CORBA, XML-RPC, and JSON-RPC also needs HTTP protocol since they were designed for 
-in client-server architecture. It imply that you need to build a web server in order
-to use the mechanisms. However, in any use case that only need a single computer,
+CORBA, XML-RPC, SOAP, and JSON-RPC also needs HTTP protocol since they were designed for 
+in client-server architecture. It imply that developers need to build a web server in 
+order to use the mechanisms. However, in any use case that only need a single computer,
 this is not ideal.
 
-Considering the advantages and disadvantages of those early approaches, in this paper, 
-we introduce a new CBSE framework named Chimera. This framework is much simpler since
+Considering the advantages and disadvantages of earlier approaches, in this paper, 
+we develop a new CBSE framework named Chimera. This framework is much simpler since
 HTTP is only required for distributed computation. Chimera also use CLI mechanism that
 works in almost all OS and most programming language.
 The only dependency of Chimera are Node.js and several NPM packages.
@@ -112,7 +112,7 @@ mehanism availability is very high. Even DOS also provide similar mechanism
 
 Pipe mechanism works by letting a program's standard output being used as another
 program's standard input. By putting several programs into a single pipeline, we can
-make a more complex process as shown in figure ~\ref{fig:unixPipe}.
+compose a more complex process as shown in figure ~\ref{fig:unixPipe}.
 
 \begin{figure}
 	\centering
@@ -218,11 +218,7 @@ From CORBA official website, CORBA is defined as standard created by the Object
 Management Group designed to facilitate the communication of systems 
 that are deployed on diverse platforms \cite{corba}. CORBA 1.0 was released on August 
 1991. The last version, CORBA 3.3 was released on November 2012 \cite{corbaspec}.
-
-Over a long time of development and adjustment, CORBA is a mature specification.
-It is heavily affected by object oriented paradigm. Since the consortium that backed
-CORBA was also responsible for creating UML (Unified Modelling Language), we can assume
-that CORBA also followed several aspects of best practices.
+CORBA is heavily affected by object oriented paradigm.
 
 The main component of CORBA is the Object Request Broker (ORB). ORB act as bridge 
 between client and service provider. The service provider (server) provide an 
@@ -243,7 +239,7 @@ Figure ~\ref{fig:orb} shows the interaction between ORB, server, and client.
 IDL can be written in Java, C++, or any other language, depend on the implementation of
 the ORB.
 
-An implementation example of CORBA can be found in . Listing ~\ref{corbaIDLExample} show an IDL of an object.
+An IDL example is shown in listing ~\ref{corbaIDLExample}.
 
 \begin{lstlisting}[caption=CORBA IDL Example in C++, label=corbaIDLExample, language=c, basicstyle=\small, breaklines=true]
 module Finance {
@@ -364,6 +360,10 @@ We assume that most programming languages are supporting command line interface 
 command line arguments. By creating a framework that depend on command line protocol,
 we aim on maximum language agnosticism with less effort.
 
+In figure ~\ref{fig:chimeraArchitecture} we show the architecture of Chimera. Suppose
+{\it Program1} and {\it Program2} should run in parallel, and {\it Program3} should be
+executed once {\it Program1} and {\it Program2} finished.
+
 \begin{figure*}
 	\centering
 	\includegraphics[width=1.0\textwidth]
@@ -387,54 +387,17 @@ Node.js has a package-manager named NPM (Node Package Manager). This allows deve
 to use libraries that were already written by other developers. Chimera itself depend
 on several packages:
 
-\begin{description}
-    \item [async]
-        \begin{sloppypar}
-        Since Node.js embrace non-blocking mechanism, The program flow is not
-        logically sequential. Node.js make use of callback mechanism. Consequently,
-        there is no simple way to ensure that a routine has to be executed after another
-        process completed. Async allows us to build the mechanism easier. It support
-        both, sequential and parallel execution.
-        \end{sloppypar}
-
-    \item [express]
-        \begin{sloppypar}
-        Express is de-facto web framework for Node-JS. Since we want to also
-        support HTTP IPC, Express is the most common solution.
-        \end{sloppypar}
-
-    \item [fs-extra]
-        \begin{sloppypar}
-        Fs-extra allows us to perform several file manipulation.
-        \end{sloppypar}
-
-    \item [http]
-        \begin{sloppypar}
-        This package allows us to send HTTP request to another computer.
-        \end{sloppypar}
-
-    \item [js-yaml]
-        \begin{sloppypar}
-        This package is a YAML parser. Although we use JSON as data-transfer
-        format, we think YAML has a cleaner syntax for chain definition.
-        \end{sloppypar}
-
-    \item [node-cmd]
-        \begin{sloppypar}
-        Node-cmd allows us to run a program in CLI manner. This is 
-        essential since our goal is to make a framework that supports CLI arguments.
-        \end{sloppypar}
-
-    \item [path]
-        \begin{sloppypar}
-        This package is mainly used to get file or directory full-path. This
-        is necessary for security purpose since we we want server to only serve chains
-        located in a specific directory.
-        \end{sloppypar}
-
-    \item [process]
-    \item [querystring]
-\end{description}
+\begin{itemize}
+    \item async
+    \item express
+    \item fs-extra
+    \item http
+    \item js-yaml
+    \item node-cmd
+    \item path
+    \item process
+    \item querystring
+\end{itemize}
 
 \subsection{YAML Chain}
 \blindtext
