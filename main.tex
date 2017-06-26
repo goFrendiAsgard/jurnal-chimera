@@ -364,6 +364,40 @@ In figure ~\ref{fig:chimeraArchitecture} we show the architecture of Chimera. Su
 {\it Program1} and {\it Program2} should run in parallel, and {\it Program3} should be
 executed once {\it Program1} and {\it Program2} finished.
 
+Chimera architecture contains of several parts. The Chimera Core is the main component 
+responsible for orchestrating external programs into a single process flow. 
+Chimera core can access Temporary Memory which is no other than a JSON Object placed in
+memory. All external program's input and output are copied into this JSON Object.
+The process flow itself is written in a YAML Chain File. YAML is a common format for
+configuration. YAML rely on indentation and whitespace, making the format easily 
+readable. Using these three components, Chimera is able to do everything UNIX Pipe
+able to do. In fact, developers can even define UNIX Pipe inside Chimera.
+
+The other two components are Chimera-Service and Chimera-Sender. These two components
+are responsible for HTTP communication. Bringing the entire framework into distributed
+environment.
+
+In figure ~\ref{fig:chimeraArchitecture}, the process started when the user ask Chimera 
+to execute the process. User should provide the YAML file location and the process's
+inputs. After getting a request from user, Chimera will read the YAML file, retrieving
+it's content, and initiating global variables in Temporary memory. The framework then
+executing external programs sequentially or parallelly, depend on the content of the
+YAML file.
+
+If the external programs are located in the same computer, Chimera-Core will execute the
+programs and provide the required stdin parameters. The stdin parameters are taken from
+Temporary Memory. After the program executed successfully, Chimera-Core will read the 
+stdout and save it into Temporary Memory for further process.
+
+If the programs are located in the different computer, the user should provide
+invocation of Chimera-Sender. Chimera-Sender will contact Chimera-Service to run 
+Chimera-Core remotely. Once the process completec, Chimera-Service will send the
+response into Chimera-Sender. At last, Chimera-Sender will send the response back to
+the local Chimera-Core.
+
+At the end of the process, Chimera will return the output of those chain-processes to 
+the user.
+
 \begin{figure*}
 	\centering
 	\includegraphics[width=1.0\textwidth]
@@ -378,14 +412,17 @@ We already publish Chimera as NPM package. It is accessible through
 https://www.npmjs.com/package/chimera-framework.
 
 
-\subsection{Node.js}
+\subsection{Node.js and NPM As Chimera's Foundation}
 
-Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient \cite{nodejs}. Compared to Python and PHP, Node.js has an overall better performance
-\cite{lei2014performance}.
+Chimera is written in Node.js. Node.js itself is a JavaScript runtime built on Chrome's 
+V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it 
+lightweight and efficient \cite{nodejs}. Compared to Python and PHP, Node.js has an 
+overall better performance \cite{lei2014performance}. Node.js is also available for
+Windows, Linux, and Mac.
 
 Node.js has a package-manager named NPM (Node Package Manager). This allows developers
-to use libraries that were already written by other developers. Chimera itself depend
-on several packages:
+to use libraries that were already written by other developers. Chimera depend on 
+several packages:
 
 \begin{itemize}
     \item async
@@ -399,8 +436,18 @@ on several packages:
     \item querystring
 \end{itemize}
 
+Async package is used to develop the control flow since Node.js has non-blocking
+mechanism. Express is used to build Chimera-Service. Express allows us to catch request
+and send appropriate response. We also use fs-extra in order to do file operations.
+Http and querystring is used to build Chimera-Sender. We also need several functionality
+provided by node-cmd in order to execute other programs through CLI mechanism.
+Js-yaml is used for YAML parsing. At last, we need path and process to determine 
+absolute path of a file as well as changing directory and retrieving input arguments.
+
 \subsection{YAML Chain}
-\blindtext
+
+YAML (YAML Ain't Markup Language) is a human friendly data serialization standard for 
+all programming languages \cite{yaml}.
 
 \subsection{JSON Formatted Temporary Global Storage}
 \blindtext
