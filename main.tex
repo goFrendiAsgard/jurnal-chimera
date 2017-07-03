@@ -82,7 +82,7 @@ On 2016, Feilhauer and Sobotka introduce another platform called DEF
 
 Aside from Unix Pipe, all other mechanism require the components to be aware that 
 they are part of the framework. This means that you cannot use old programs (e.g:
-{\it cal} and {\it cowsay}) as XML-RPC or CORBA component. At least additional layer
+{\it factor} and {\it calc}) as XML-RPC or CORBA component. At least additional layer
 and adjustment has to be built.
 
 CORBA, XML-RPC, SOAP, and JSON-RPC also needs HTTP protocol since they were designed for 
@@ -123,50 +123,25 @@ compose a more complex process as shown in figure ~\ref{fig:unixPipe}.
 \end{figure}
 
 For more explanation, we provide a simple test case. Consider two different program,
-{\it cal} and {\it cowsay}. Given no argument, {\it cal} will show you current month's
-calendar. On the other hand, given a single argument, {\it cowsay} will show the 
-argument alongside an ASCII art of a cow.
+{\it factor} and {\it calc}. Given a single argument, {\it factor} will show you all 
+factors of a number. Given also a single argument, {\it calc} will show you the result 
+of an arithmetic operation. Listing ~\ref{factorAndCalc} shows the outputs of both commands
 
-\begin{lstlisting}[caption=cal and cowsay, label=calAndCowsay, language=bash, basicstyle=\small, breaklines=true]
-#! cal
-     June 2017        
-Su Mo Tu We Th Fr Sa  
-             1  2  3  
- 4  5  6  7  8  9 10  
-11 12 13 14 15 16 17  
-18 19 20 21 22 23 24  
-25 26 27 28 29 30     
-                      
-#! cowsay "hello"
- _______
-< hello >
- -------
-        \   ^__^
-         \  (oo)\_______
-            (__)\       )\/\
-                ||----w |
-                ||     ||
+\begin{lstlisting}[caption=Usage of factor and calc, label=factorAndCalc, language=bash, basicstyle=\small, breaklines=true]
+#! factor 20
+20: 2 2 5
+
+#! calc 7+3 
+10
 \end{lstlisting}
 
 Unix pipe mechanism allows you to combine those two programs. For example, if you
-want the output of {\it cal} become the input of {\it cowsay}, you can use pipe
+want the output of {\it calc} become the input of {\it factor}, you can use pipe
 command as shown in listing ~\ref{unnamedPipeExample}
 
 \begin{lstlisting}[caption=Unnamed pipe example, label=unnamedPipeExample, language=bash, basicstyle=\small, breaklines=true]
-#! cal | cowsay
- ________________________________________
-/  June 2017 Su Mo Tu We Th Fr Sa        \
-|                                        |
-| 1 2 3                                  |
-|                                        |
-| 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 |
-\ 19 20 21 22 23 24 25 26 27 28 29 30    /
- ----------------------------------------
-        \   ^__^
-         \  (oo)\_______
-            (__)\       )\/\
-                ||----w |
-                ||     ||
+#! calc 7+3 | factor
+10: 2 5
 \end{lstlisting}
 
 
@@ -176,29 +151,15 @@ provide cheap parallel processing \cite{conway2003parallel}.
 
 In listing ~\ref{namedPipeExample} we show a simple named-pipe mechanism. First, we make
 a named pipe called {\it backpipe} by using {\it mkfifo} command. Next, we redirect
-standard output of {\it cal} and {\it cowsay} into {\it backpipe}. Finally, we show
+standard output of {\it calc} and {\it factor} into {\it backpipe}. Finally, we show
 the content of the {\it backpipe} by using {\it cat} command.
 
 \begin{lstlisting}[caption=Named pipe example, label=namedPipeExample, language=bash, basicstyle=\small, breaklines=true]
 #! mkfifo backpipe 
 
-#! cal > backpipe | cowsay hello > backpipe | cat backpipe
-     June 2017        
-Su Mo Tu We Th Fr Sa  
-             1  2  3  
- 4  5  6  7  8  9 10  
-11 12 13 14 15 16 17  
-18 19 20 21 22 23 24  
-25 26 27 28 29 30     
-                     
- _______
-< hello >
- -------
-        \   ^__^
-         \  (oo)\_______
-            (__)\       )\/\
-                ||----w |
-                ||     ||
+#! calc 7+3 > backpipe | factor 20 > backpipe | cat backpipe
+10
+2 2 5
 \end{lstlisting}
 
 Although pipe mechanism provide high availability and capability, 
@@ -271,7 +232,9 @@ critics \cite{hadar2013intuition} regardless of it's popularity.
 
 XML-RPC is a spec and a set of implementations that allow software running on 
 disparate operating systems, running in different environments to make procedure 
-calls over the Internet. XML-RPC using HTTP as the transport and XML as the encoding. It is designed to be as simple as possible, while allowing complex data structures to be transmitted, processed and returned \cite{xmlrpc}.
+calls over the Internet. XML-RPC using HTTP as the transport and XML as the encoding.
+It is designed to be as simple as possible, while allowing complex data structures to 
+be transmitted, processed and returned \cite{xmlrpc}.
 
 SOAP stands for Simple Object Access Protocol. SOAP is a lightweight protocol 
 intended for exchanging structured information in a decentralized, distributed 
@@ -295,7 +258,7 @@ access HTTP and parse/create the data format. However, in order to use these pro
 a developer should be aware that the components they built will works as a part of the
 bigger system. Tools or programs that were built without this consideration will need
 some adjustment or additional layers in order to make them works with the protocol.
-For example, using {\it{cowsay}} or {\it{cal}} as components of XML-RPC might require
+For example, using {\it{factor}} or {\it{calc}} as components of XML-RPC might require
 developer to build another program to catch the output and wrap it in XML envelope.
 
 \subsection{DEF}
@@ -341,7 +304,7 @@ beaker::get('df')
 
 Beaker notebook is good for prototyping. It also has a very simple API compared to
 CORBA or XML-RPC. However, it still require the developer to add additional layer
-in order to use old components like {\it cal} or {\it cowsay}
+in order to use old components like {\it factor} or {\it calc}
 
 
 \section{Chimera Architecture}
@@ -457,24 +420,32 @@ the developers has to be very careful with comma and curly braces. Another disad
 of JSON is it doesn't provide any intuitive way to add comments, which is quite
 essential in writing algorithms.
 
+Let's consider we have several programs written in Python, Java, PHP, and Javascript. 
+Each of them takes 2 arguments, do simple arithmetic operation, and return a single output. 
+Given a and b, you want to calculate ((a+b) * (a-b)) + a.
+
+You can write the process as follow:
+
+{\it f = ((a+b) * (a-b)) + a}
+
+You can then divide this process into several sub-processes:
+
+\begin{itemize}
+    \item Process 1: c = a + b
+    \item Process 2: d = a - b
+    \item Process 3: e = c * d
+    \item Process 4: f = e + a
+\end{itemize}
+
+Process 1 and process 2 will be executed in parallel since they are independent to each other. 
+You don't need to solve process 1 in order to do process 2 and vice versa.
+
+After Process 1 and process 2 finished, process 3 and process 4 should be executed in serial. 
+Process 3 depend on process 1 and 2, while process 4 depend on process 3
+
 Listing ~\ref{yamlChainExample} is the example of our YAML formatted chain file.
 
 \begin{lstlisting}[caption=YAML Chain Example, label=yamlChainExample, language=yaml, basicstyle=\small, breaklines=true]
-# Location: your-chain-file.yaml 
-# THE MAIN PROCESS: 
-#   f = ((a+b) * (a-b)) + a 
-# THE SUBPROCESSES: 
-#   Process 1: c = a + b (we will use Python) 
-#   Process 2: d = a - b (we will use Java) 
-#   Process 3: e = c * d (we will use PHP) 
-#   Process 4: f = e + a (we will use javascript) 
-# THE FLOW: 
-# Process 1 and Process 2 will be executed in parallel 
-# since they are independent to each other 
-# After Process 1 and Process 2 finished, 
-# Process 3 and Process 4 should be executed in serial  
-# Process 3 depend on both Process 1 and 2, and Process 4 depend on Process 3 
- 
 ins: a,b # The inputs of main process 
 out: f # The outputs of main process 
 series:
@@ -508,6 +479,30 @@ If the process has no other sub-process, {\it command} is used. Otherwise, if th
 process contains another sub-process, {\it parallel} or {\it series} is used depend
 on the desired execution flow. The best practice is, when two or more processes
 doesn't depend on each other, parallel flow is recommended.
+
+For convenience, we also provide single-line shorthand for {\it ins}, {\it out}, 
+and {\it command}. {\it ins} should be written inside parantheses, while {\it ->}
+act as separator between {\it ins}, {\it command}, and {\it output}. For example,
+Listing  ~\ref{yamlShort} is equal to Listing ~\ref{yamlChainExample}.
+
+\begin{lstlisting}[caption=YAML Chain With Shorthand, label=yamlShort, language=yaml, basicstyle=\small, breaklines=true]
+ins: a,b # The inputs of main process 
+out: f # The outputs of main process 
+series:
+  # Process 1 and 2 
+  - parallel:
+      # Process 1 (in Python) 
+      - (a,b) -> python programs/add.py -> c
+      - series: # Process 2 (in Java) 
+          # First, compile the source  
+          - javac programs/Substract.java
+          # then run the program 
+          - (a,b) -> java -cp programs Substract -> d
+  # Process 3 (in PHP) 
+  - (c,d) -> php programs/multiply.php -> e
+  # Process 4 (in Javascript) 
+  - (e,a) -> node programs/add.js -> f
+\end{lstlisting}
 
 
 \subsection{JSON Format for Temporary Global Storage and Data Transfer}
@@ -601,17 +596,73 @@ the network.
 Chimera-send is a utility to access chimera service.
 The typical usage of chimera-send is {\it TIMEOUT=5000 chimera-send remoute-chain-file.yaml [input1 [input2] ... ]}
 
+
+\section{Test}
+
+We use the Listing ~\ref{ditributedParallelYaml} in order to test that Chimera works
+in parallel and distributed environment.
+
+\begin{lstlisting}[caption=Chimera-eisn usage example, label=chimeraEisn, language=yaml, basicstyle=\small, breaklines=true]
+ins: a,b,server
+out: e
+vars:
+  server_chain: tests/chain-minimal.yaml 
+verbose: true
+series:
+  - parallel:
+      # Process 1
+      - (a,b) -> php programs/add.php -> c
+      # Process 2
+      - (server, server_chain, a,b) -> chimera-send -> d
+  # Process 3
+  - (c,d) -> node programs/add.js -> e
+\end{lstlisting}
+
+The chain contains of 3 processes. Process 1 and process 2 will be executed in parallel.
+After process 1 and process 2 finished, process 3 will be executed. Unlike process 1 and
+process 3, process 2 will run on the server.
+
+On the server side, we execute {\it chimera-serve} so that it will listen to client's request
+and giving response as necessary.
+
+On the client side, we execute {\it chimera tests/chain-distributed.yaml 4 5 http://localhost:3000}
+
+Client log is shown on ~\ref{clientLog} 
+
+\begin{lstlisting}[caption=Client Log, label=clientLog, language=bash, basicstyle=\small, breaklines=true]
+START [php programs/add.php "4" "5"] AT    : 15,395,587,568,188
+START [chimera-send "http://localhost:3000" "tests/chain-minimal.yaml" "4" "5"] AT    : 15,395,607,233,624
+END   [php programs/add.php "4" "5"] AT    : 15,395,641,517,534
+TAKES 53,905,697 NS
+END   [chimera-send "http://localhost:3000" "tests/chain-minimal.yaml" "4" "5"] AT    : 15,396,103,823,215
+TAKES 496,566,143 NS
+START [node programs/add.js "9" "-5"] AT    : 15,396,105,155,463
+END   [node programs/add.js "9" "-5"] AT    : 15,396,187,724,022
+TAKES 82,541,434 NS
+4
+\end{lstlisting}
+
+From the log, we can see that the second process on client side was executed before the first process finished.
+However, the third process didn't started before the second process started. Process 2 output was taken from the
+server's response.
+
 \section{Conclusion}
 
-In this paper, we have show a simple language agnostic CBSE Framework. The framework
-is quite simple yet powerful enough for distributed environment.
+In this paper, we have developed Chimera, a simple language agnostic CBSE Framework. 
+The framework is quite simple, yet powerful enough for distributed and parallel computation.
+
+Old UNIX commands like {\it calc} and {\it factor} work perfectly under the framework.
+No additional layer is needed.
 
 %\appendices
 %\section{Proof of the First Zonklar Equation}
 
 % use section* for acknowledgement
 \section*{Acknowledgment}
-The authors would like to thank...
+
+The authors would like to thank Sonny Setiawan, Satriyo Wibowo, and Dani Devito for
+their suggestions and opinions. Sonny Setiawan is a Marketing Business Analyst in Malang.
+Satriyo Wibowo is an IT professional in Jakarta. Dani Devito is an IT student in Malang.
 
 % Can use something like this to put references on a page
 % by themselves when using endfloat and the captionsoff option.
