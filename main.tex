@@ -45,10 +45,11 @@ main advantage of CBSE is separation of components. A single component will
 only focus on a single task or related collection of tasks. Allowing software 
 developer to reuse the component for other use-cases. By using this approach, 
 software developer doesn't need to deal with spaghetti code. Several 
-approaches has been developed in order to achieve ideal CBSE. The earliest 
+approaches have been developed in order to achieve ideal CBSE. The earliest 
 implementation was UNIX pipe and redirect, while the newer approach including 
-CORBA, XML-RPC, and REST. Our framework, Chimera, was built on top of Node.js. 
-Chimera allows developer to build pipe flow in a chain (a YAML formatted file) 
+CORBA, XML-RPC, and REST. In this paper, we introduce Chimera, our simple 
+agnostic-language framework. Chimera was built on top of Node.js. This framework
+    allows developer to build pipe flow in a chain (a YAML formatted file) 
 as well as defining global variables. Compared to UNIX named and unnamed pipe, 
 this format is easier and more flexible. On the other hand, unlike XML-RPC, 
 REST, and CORBA, chimera doesn't enforce users to use special protocol such as 
@@ -144,8 +145,7 @@ command as shown in listing ~\ref{unnamedPipeExample}
 10: 2 5
 \end{lstlisting}
 
-
-Beside of it's high availability and simplicity, UNIX pipe also support parallel
+Beside of it's high availability and simplicity, UNIX pipe also supports parallel
 processing through named-pipe mechanism. The named-pipe mechanism can be used to 
 provide cheap parallel processing \cite{conway2003parallel}. 
 
@@ -162,16 +162,18 @@ the content of the {\it backpipe} by using {\it cat} command.
 2 2 5
 \end{lstlisting}
 
-Although pipe mechanism provide high availability and capability, 
+Although pipe mechanism provides high availability and capability, 
 it has several limitations. For example, named-pipe needs external file as temporary 
 container. The external file has to be deleted once the operation performed. 
-This approach is not straight forward, thus, some efforts is needed in order to 
+This approach is not straight forward, thus, some efforts eeded in order to 
 to build a working named-pipe based computation. 
 
-For simple use cases involving a single computer, pipe mechanisme might be ideal. 
+For simple use cases involving a single computer, pipe mechanism is quite ideal. 
 However, at some point, when the program become more complicated, memory sharing 
-and network access might be needed. Using a mere pipe mechanism to support those 
-requirement is either hard or impossible.
+and network access is needed. Using a mere pipe mechanism to support those 
+requirement needs a lot of efforts. Although it is possible, the readability of
+the script is going to be severely reduced.
+
 
 \subsection{CORBA}
 
@@ -332,9 +334,9 @@ responsible for orchestrating external programs into a single process flow.
 Chimera core can access Temporary Memory which is no other than a JSON Object placed in
 memory. All external program's input and output are copied into this JSON Object.
 The process flow itself is written in a YAML Chain File. YAML is a common format for
-configuration. YAML rely on indentation and whitespace, making the format easily 
-readable. Using these three components, Chimera is able to do everything UNIX Pipe
-able to do. In fact, developers can even define UNIX Pipe inside Chimera.
+configuration. YAML depends on indentation and whitespace, making the format easily 
+readable. Using these three components, Chimera is able to do everything UNIX Pipe can. 
+In fact, developers can even define UNIX Pipe inside Chimera.
 
 The other two components are Chimera-Service and Chimera-Sender. These two components
 are responsible for HTTP communication. Bringing the entire framework into distributed
@@ -384,7 +386,7 @@ overall better performance \cite{lei2014performance}. Node.js is also available 
 Windows, Linux, and Mac.
 
 Node.js has a package-manager named NPM (Node Package Manager). This allows developers
-to use libraries that were already written by other developers. Chimera depend on 
+to use libraries that have already been written by other developers. Chimera depend on 
 several packages:
 
 \begin{itemize}
@@ -411,12 +413,12 @@ absolute path of a file as well as changing directory and retrieving input argum
 
 YAML (YAML Ain't Markup Language) is a human friendly data serialization standard for 
 all programming languages \cite{yaml}. YAML standard was built in 2001. Unlike JSON,
-YAML rely heavily on indentation. Although the size is bigger compared to JSON, YAML
+YAML depends heavily on indentation. Although the size is bigger compared to JSON, YAML
 is very readable and commonly used for configuration.
 
-At the beginning Chimera's chain file was intended to use JSON format. However, in
-a very short time, we realize that using JSON format might not be a good decision since
-the developers has to be very careful with comma and curly braces. Another disadvantage
+At the beginning Chimera's chain file was intended to use JSON format. However, we realize 
+that using JSON format might not be a good decision since the developers has to be very 
+careful with comma and curly braces. Another disadvantage
 of JSON is it doesn't provide any intuitive way to add comments, which is quite
 essential in writing algorithms.
 
@@ -527,16 +529,16 @@ end of the process, the global storage will contains a, b, c, d, e, and f.
 \end{lstlisting}
 
 Not only for temporary storage, we also use JSON for data transfer between 
-Chimera-Sender and Chimera-Service. The data sent to Chimera-Service is shown in listing
-~\ref{jsonRequest}, while the data received by Chimera-Sender is shown in listing
+Chimera-Sender and Chimera-Service. The data sent to Chimera-Service is shown in Listing
+~\ref{jsonRequest}, while the data received by Chimera-Sender is shown in Listing
 ~\ref{jsonResponse}.
 
-The JSON request to Chimera-Service contains 2 keys. The "chain" is to 
+The JSON request contains 2 keys. The "chain" is to 
 indicate the remote YAML chain file location, while "input" contains array of inputs.
 
-The JSON response from Chimera-Service contains 3 keys. The "success" is to indicate
-whether the request succeed or failed. "errorMessage" contains the error message, and
-"response" is the response from the server.
+The JSON response contains 3 keys. The {\it success} key is to indicate
+whether the request succeed or failed. {\it errorMessage} contains the error message, and
+{\it response} is the response from the server.
 
 \begin{lstlisting}[caption=JSON Request, label=jsonRequest, language=json, basicstyle=\small, breaklines=true] 
 {
@@ -588,21 +590,26 @@ series:
 \end{lstlisting}
 
 Chimera-serve is a utility to let several chain file being served by a computer.
-The typical usage of chimera-serve is {\it TIMEOUT=5000 PUBLISHED=. chimera-serve}
+The typical usage of chimera-serve is:
+
+{\it TIMEOUT=5000 PUBLISHED=. chimera-serve}
+
 The first two statements are used to define timeout and published directory. Dot means
 current directory. All chain file in published directory is then accessible over
 the network.
 
 Chimera-send is a utility to access chimera service.
-The typical usage of chimera-send is {\it TIMEOUT=5000 chimera-send remoute-chain-file.yaml [input1 [input2] ... ]}
+The typical usage of chimera-send is: 
+
+{\it TIMEOUT=5000 chimera-send remoute-chain-file.yaml [input1 [input2] ... ]}
 
 
 \section{Test}
 
-We use the Listing ~\ref{ditributedParallelYaml} in order to test that Chimera works
+We use Listing ~\ref{distributedParallelYaml} in order to test that Chimera works
 in parallel and distributed environment.
 
-\begin{lstlisting}[caption=Chimera-eisn usage example, label=chimeraEisn, language=yaml, basicstyle=\small, breaklines=true]
+\begin{lstlisting}[caption=Distributed and Parallel YAML-chain Scenario, label=distributedParallelYaml, language=yaml, basicstyle=\small, breaklines=true]
 ins: a,b,server
 out: e
 vars:
