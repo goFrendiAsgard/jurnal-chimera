@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.6.16)  6 JUL 2017 12:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.6.16)  8 JUL 2017 18:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -451,7 +451,7 @@ File: lstlang1 2002/07/31 v1.0d listings language file
 (/usr/share/texmf/tex/latex/fpc-3.0.0/lstmisc.sty
 File: lstmisc.sty 2002/04/01 1.0 (Carsten Heinz)
 ) [2 <./images/Orb.jpg>]
-Underfull \hbox (badness 1874) in paragraph at lines 257--264
+Underfull \hbox (badness 1874) in paragraph at lines 258--265
 \OT1/ptm/m/n/10 RPC sup-port any lan-guage that can ac-cess HTTP and
  []
 
@@ -467,12 +467,12 @@ File: lstlang2 2002/07/31 v1.0d listings language file
 (/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang3.sty
 File: lstlang3 2002/07/31 v1.0d listings language file
 )
-Underfull \hbox (badness 3302) in paragraph at lines 331--339
+Underfull \hbox (badness 3302) in paragraph at lines 327--335
 []\OT1/ptm/m/n/10 Chimera ar-chi-tec-ture con-tains of sev-eral parts. The
  []
 
 
-Underfull \hbox (badness 1859) in paragraph at lines 340--343
+Underfull \hbox (badness 1859) in paragraph at lines 336--339
 []\OT1/ptm/m/n/10 The other two com-po-nents are Chimera-Service and
  []
 
@@ -480,9 +480,14 @@ Underfull \hbox (badness 1859) in paragraph at lines 340--343
 File: images/chimera.png Graphic file (type png)
 
 <use images/chimera.png>
-Package pdftex.def Info: images/chimera.png used on input line 368.
+Package pdftex.def Info: images/chimera.png used on input line 364.
 (pdftex.def)             Requested size: 524.09975pt x 244.57928pt.
- (/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang1.sty
+
+Underfull \hbox (badness 3098) in paragraph at lines 371--373
+[]\OT1/ptm/m/n/10 We al-ready pub-lish Chimera as an NPM pack-age.
+ []
+
+(/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang1.sty
 File: lstlang1 2002/07/31 v1.0d listings language file
 )
 (/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang2.sty
@@ -498,7 +503,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.449 ...yaml, basicstyle=\small, breaklines=true]
+l.445 ...yaml, basicstyle=\small, breaklines=true]
                                                   
 The following languages weren't loadable:
     ,yaml$
@@ -511,7 +516,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.449 ...yaml, basicstyle=\small, breaklines=true]
+l.445 ...yaml, basicstyle=\small, breaklines=true]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -532,7 +537,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.489 ...yaml, basicstyle=\small, breaklines=true]
+l.485 ...yaml, basicstyle=\small, breaklines=true]
                                                   
 The following languages weren't loadable:
     ,yaml$
@@ -545,7 +550,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.489 ...yaml, basicstyle=\small, breaklines=true]
+l.485 ...yaml, basicstyle=\small, breaklines=true]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -566,7 +571,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.522 ...json, basicstyle=\small, breaklines=true]
+l.518 ...json, basicstyle=\small, breaklines=true]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -579,7 +584,41 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.522 ...json, basicstyle=\small, breaklines=true]
+l.518 ...json, basicstyle=\small, breaklines=true]
+                                                  
+The language is not loadable. Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+(/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang1.sty
+File: lstlang1 2002/07/31 v1.0d listings language file
+)
+(/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang2.sty
+File: lstlang2 2002/07/31 v1.0d listings language file
+)
+(/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang3.sty
+File: lstlang3 2002/07/31 v1.0d listings language file
+)
+
+! Package Listings Error: Couldn't load requested language.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.538 ...json, basicstyle=\small, breaklines=true]
+                                                  
+The following languages weren't loadable:
+    ,json$
+This may cause errors in the sequel.
+
+
+! Package Listings Error: language json undefined.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.538 ...json, basicstyle=\small, breaklines=true]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -600,7 +639,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.542 ...json, basicstyle=\small, breaklines=true]
+l.545 ...json, basicstyle=\small, breaklines=true]
                                                   
 The following languages weren't loadable:
     ,json$
@@ -613,7 +652,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.542 ...json, basicstyle=\small, breaklines=true]
+l.545 ...json, basicstyle=\small, breaklines=true]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -634,41 +673,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.549 ...json, basicstyle=\small, breaklines=true]
-                                                  
-The following languages weren't loadable:
-    ,json$
-This may cause errors in the sequel.
-
-
-! Package Listings Error: language json undefined.
-
-See the Listings package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.549 ...json, basicstyle=\small, breaklines=true]
-                                                  
-The language is not loadable. Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-(/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang1.sty
-File: lstlang1 2002/07/31 v1.0d listings language file
-)
-(/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang2.sty
-File: lstlang2 2002/07/31 v1.0d listings language file
-)
-(/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang3.sty
-File: lstlang3 2002/07/31 v1.0d listings language file
-)
-
-! Package Listings Error: Couldn't load requested language.
-
-See the Listings package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.581 ...yaml, basicstyle=\small, breaklines=true]
+l.577 ...yaml, basicstyle=\small, breaklines=true]
                                                   
 The following languages weren't loadable:
     ,yaml$
@@ -681,13 +686,13 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.581 ...yaml, basicstyle=\small, breaklines=true]
+l.577 ...yaml, basicstyle=\small, breaklines=true]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 6792) in paragraph at lines 603--604
+Underfull \hbox (badness 6792) in paragraph at lines 599--600
 []\OT1/ptm/m/it/10 TIMEOUT=5000 chimera-send remoute-chain-file.yaml
  []
 
@@ -707,7 +712,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.611 ...yaml, basicstyle=\small, breaklines=true]
+l.607 ...yaml, basicstyle=\small, breaklines=true]
                                                   
 The following languages weren't loadable:
     ,yaml$
@@ -720,13 +725,13 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.611 ...yaml, basicstyle=\small, breaklines=true]
+l.607 ...yaml, basicstyle=\small, breaklines=true]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 1997) in paragraph at lines 634--635
+Underfull \hbox (badness 1997) in paragraph at lines 630--631
 []\OT1/ptm/m/n/10 On the client side, we ex-e-cute \OT1/ptm/m/it/10 chimera tes
 ts/chain-
  []
@@ -747,7 +752,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.638 ...bash, basicstyle=\small, breaklines=true]
+l.634 ...bash, basicstyle=\small, breaklines=true]
                                                   
 The following languages weren't loadable:
     ,bash$
@@ -760,7 +765,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.638 ...bash, basicstyle=\small, breaklines=true]
+l.634 ...bash, basicstyle=\small, breaklines=true]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -794,7 +799,7 @@ Before submitting the final camera ready copy, remember to:
 Here is how much of TeX's memory you used:
  5262 strings out of 493029
  76884 string characters out of 6136234
- 252970 words of memory out of 5000000
+ 251663 words of memory out of 5000000
  8659 multiletter control sequences out of 15000+600000
  37950 words of font info for 74 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
@@ -806,7 +811,7 @@ ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/
 utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (7 pages, 277811 bytes).
+Output written on main.pdf (7 pages, 277829 bytes).
 PDF statistics:
  60 PDF objects out of 1000 (max. 8388607)
  40 compressed objects within 1 object stream

@@ -47,13 +47,13 @@ software developer doesn't need to deal with spaghetti code. Several
 approaches have been developed in order to achieve ideal CBSE. The earliest 
 implementation was UNIX pipe and redirect, while the newer approach including 
 CORBA, XML-RPC, and REST. In this paper, we introduce Chimera, our simple 
-agnostic-language framework. Chimera was built on top of Node.js. This framework
+language-agnostic framework. Chimera was built on top of Node.js. This framework
     allows developer to build pipe flow in a chain (a YAML formatted file) 
 as well as defining global variables. Compared to UNIX named and unnamed pipe, 
 this format is easier and more flexible. On the other hand, unlike XML-RPC, 
-REST, and CORBA, chimera doesn't enforce users to use special protocol such as 
-HTTP (except for distributed computing scenario). Nor it require the components
-to be aware that they works on top of the framework.
+REST, and CORBA, chimera is much simpler. HTTP protocol is only required for
+distributed computing scenario. Nor it require the components to be aware that 
+they works on top of the framework.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -81,9 +81,9 @@ On 2016, Feilhauer and Sobotka introduce another platform called DEF
 \cite{feilhauer2016def}.
 
 Aside from Unix Pipe, all other mechanism require the components to be aware that 
-they are part of the framework. This means that you cannot use old programs (e.g:
+they are parts of the framework. This means that you cannot use old programs (e.g:
 {\it factor} and {\it calc}) as XML-RPC or CORBA component. At least additional layer
-and adjustment has to be built.
+and adjustment have to be built.
 
 CORBA, XML-RPC, SOAP, and JSON-RPC also needs HTTP protocol since they were designed for 
 in client-server architecture. It imply that developers need to build a web server in 
@@ -107,7 +107,7 @@ preceeding Chimera.
 The very first implementation of CBSE was UNIX pipe mechanism \cite{mcilroy1968mass}. 
 UNIX pipe allows engineer to pass output of a single program as an input of 
 another program. Since a lot of server is UNIX or linux based, this pipe 
-mehanism availability is very high. Even DOS also provide similar mechanism 
+mechanism availability is very high. Even DOS also provide similar mechanism 
 \cite{dos7command}.
 
 Pipe mechanism works by letting a program's standard output being used as another
@@ -122,9 +122,9 @@ compose a more complex process as shown in figure ~\ref{fig:unixPipe}.
 	\label{fig:unixPipe}
 \end{figure}
 
-For more explanation, we provide a simple test case. Consider two different program,
+For more explanation, we provide a simple test case. Consider two different programs,
 {\it factor} and {\it calc}. Given a single argument, {\it factor} will show you all 
-factors of a number. Given also a single argument, {\it calc} will show you the result 
+factors of a number. Given also another single argument, {\it calc} will show you the result 
 of an arithmetic operation. Listing ~\ref{factorAndCalc} shows the outputs of both commands
 
 \begin{lstlisting}[caption=Usage of factor and calc, label=factorAndCalc, language=bash, basicstyle=\small, breaklines=true]
@@ -164,14 +164,14 @@ the content of the {\it backpipe} by using {\it cat} command.
 Although pipe mechanism provides high availability and capability, 
 it has several limitations. For example, named-pipe needs external file as temporary 
 container. The external file has to be deleted once the operation performed. 
-This approach is not straight forward, thus, some efforts eeded in order to 
-to build a working named-pipe based computation. 
+This approach is not straight forward, thus, some efforts needed in order to 
+build a working named-pipe based computation. 
 
 For simple use cases involving a single computer, pipe mechanism is quite ideal. 
-However, at some point, when the program become more complicated, memory sharing 
-and network access is needed. Using a mere pipe mechanism to support those 
-requirement needs a lot of efforts. Although it is possible, the readability of
-the script is going to be severely reduced.
+However, when the program become more complicated, memory sharing  and network access 
+is needed. Using a mere pipe mechanism to support those requirement needs a lot of 
+efforts. Although it is possible, the readability of the script is going to be 
+severely reduced.
 
 
 \subsection{CORBA}
@@ -221,8 +221,9 @@ module Finance {
 };
 \end{lstlisting}
 
-Compared to UNIX Pipe, CORBA is more feature rich and complex. The developer needs to 
-embrace OOP paradigm as well as being familiar with IDL and the CORBA architecture. 
+Compared to UNIX Pipe, CORBA is more feature rich. Unfortunately, this also means 
+that CORBA is also more complex than UNIX Pipe. The developer needs to embrace OOP 
+paradigm as well as being familiar with IDL and the CORBA architecture. 
 Despite of it's language agnoticism, some non OOP language (e.g: Matlab and GNU Octave) 
 is not supported by CORBA \cite{feilhauer2016def}. CORBA also suffer of several 
 criticism \cite{henning2006rise}. Even OOP as the foundation of CORBA, also face several 
@@ -231,7 +232,7 @@ critics \cite{hadar2013intuition} regardless of it's popularity.
 
 \subsection{XML-RPC, SOAP, and JSON-RPC}
 
-XML-RPC is a spec and a set of implementations that allow software running on 
+XML-RPC is a specification and a set of implementations that allow software running on 
 disparate operating systems, running in different environments to make procedure 
 calls over the Internet. XML-RPC using HTTP as the transport and XML as the encoding.
 It is designed to be as simple as possible, while allowing complex data structures to 
@@ -281,14 +282,9 @@ SOAP, and JSON-RPC, additional layer might be needed to make use of old componen
 
 Beaker Notebook \cite{beakernotebook} is also considered as an interesting 
 approach of CBSE. The platform was developed by Two Sigma Open Source and 
-mainly used for research use. 
-
-Beaker provides native autotranslation that lets a developer declare specific 
-variables in a cell in one language, then access these seamlessly in a 
-different cell and language.
-
-Using Beaker Notebook, a developer can access a global inter-language variable
-from different cells. The cells can also be written in any language supported.
+mainly used for research use.  Beaker provides native autotranslation that 
+lets a developer declare specific variables in a cell in one language, 
+then access them seamlessly in a different cell and language.
 
 For example, in listing ~\ref{beakerPython}, we create a 6 by 4 table populated with
 random numbers. The table is then saved as global variable df. 
@@ -317,7 +313,7 @@ sharing mechanism is much simpler compared to CORBA and other network-based prot
 Our goal is to make a very simple framework that is truly language agnostic. A framework
 that also play nice with old components and not enforce developer to embrace any 
 particular programming paradigm. Also, we try to avoid making unnecessary new standard.
-By make use of tecnologies most developers familiar with, we hope the adaptation is
+By make use of technologies most developers familiar with, we hope the adaptation is
 going to be easier.
 
 We assume that most programming languages are supporting command line interface and
@@ -330,32 +326,32 @@ executed once {\it Program1} and {\it Program2} finished.
 
 Chimera architecture contains of several parts. The Chimera Core is the main component 
 responsible for orchestrating external programs into a single process flow. 
-Chimera core can access Temporary Memory which is no other than a JSON Object placed in
+Chimera core can access temporary memory which is no other than a JSON Object placed in
 memory. All external program's input and output are copied into this JSON Object.
 The process flow itself is written in a YAML Chain File. YAML is a common format for
 configuration. YAML depends on indentation and whitespace, making the format easily 
-readable. Using these three components, Chimera is able to do everything UNIX Pipe can. 
+readable. Using these three components, Chimera is able to do everything UNIX Pipe can do. 
 In fact, developers can even define UNIX Pipe inside Chimera.
 
 The other two components are Chimera-Service and Chimera-Sender. These two components
-are responsible for HTTP communication. Bringing the entire framework into distributed
-environment.
+are responsible for HTTP communication. Chimera-Service and Chimera-Sender brings the 
+entire framework into distributed environment.
 
 In figure ~\ref{fig:chimeraArchitecture}, the process started when the user ask Chimera 
 to execute the process. User should provide the YAML file location and the process's
 inputs. After getting a request from user, Chimera will read the YAML file, retrieving
-it's content, and initiating global variables in Temporary memory. The framework then
+it's content, and initiating global variables in temporary memory. The framework then
 executing external programs sequentially or parallelly, depend on the content of the
 YAML file.
 
 If the external programs are located in the same computer, Chimera-Core will execute the
 programs and provide the required stdin parameters. The stdin parameters are taken from
-Temporary Memory. After the program executed successfully, Chimera-Core will read the 
-stdout and save it into Temporary Memory for further process.
+temporary memory. After the program executed successfully, Chimera-Core will read the 
+stdout and save it into temporary memory for further process.
 
 If the programs are located in the different computer, the user should provide
 invocation of Chimera-Sender. Chimera-Sender will contact Chimera-Service to run 
-Chimera-Core remotely. Once the process completec, Chimera-Service will send the
+Chimera-Core remotely. Once the process completed, Chimera-Service will send the
 response into Chimera-Sender. At last, Chimera-Sender will send the response back to
 the local Chimera-Core.
 
@@ -372,7 +368,7 @@ the user.
 
 \section{Chimera Technical Implementation}
 
-We already publish Chimera as NPM package. It is accessible through 
+We already publish Chimera as an NPM package. It is accessible at 
 https://www.npmjs.com/package/chimera-framework.
 
 
@@ -416,8 +412,8 @@ YAML depends heavily on indentation. Although the size is bigger compared to JSO
 is very readable and commonly used for configuration.
 
 At the beginning Chimera's chain file was intended to use JSON format. However, we realize 
-that using JSON format might not be a good decision since the developers has to be very 
-careful with comma and curly braces. Another disadvantage
+that using JSON format might not be a good decision since the developers have to be very 
+careful with commas and curly braces. Another disadvantage
 of JSON is it doesn't provide any intuitive way to add comments, which is quite
 essential in writing algorithms.
 
@@ -438,10 +434,10 @@ You can then divide this process into several sub-processes:
     \item Process 4: f = e + a
 \end{itemize}
 
-Process 1 and process 2 will be executed in parallel since they are independent to each other. 
+Process 1 and process 2 will be executed parallelly since they are independent to each other. 
 You don't need to solve process 1 in order to do process 2 and vice versa.
 
-After Process 1 and process 2 finished, process 3 and process 4 should be executed in serial. 
+After Process 1 and process 2 finished, process 3 and process 4 should be executed sequentially. 
 Process 3 depend on process 1 and 2, while process 4 depend on process 3
 
 Listing ~\ref{yamlChainExample} is the example of our YAML formatted chain file.
@@ -473,9 +469,9 @@ series:
     command: node programs/add.js
 \end{lstlisting}
 
-Semantically, each node in the YAML contains of {\it ins} and {\it out }, assuming
-every program can has more than one inputs but only provide single output. The last
-element of the node is either {\it command}, {\it parallel}, or {\it series}. 
+Semantically, each node in the YAML contains of {\it ins} and {\it out }. Chimera 
+assumes every program can has more than one inputs but only provide single output. 
+The last element of the node is either {\it command}, {\it parallel}, or {\it series}. 
 If the process has no other sub-process, {\it command} is used. Otherwise, if the
 process contains another sub-process, {\it parallel} or {\it series} is used depend
 on the desired execution flow. The best practice is, when two or more processes
@@ -629,7 +625,7 @@ After process 1 and process 2 finished, process 3 will be executed. Unlike proce
 process 3, process 2 will run on the server.
 
 On the server side, we execute {\it chimera-serve} so that it will listen to client's request
-and giving response as necessary.
+and gives response as necessary.
 
 On the client side, we execute {\it chimera tests/chain-distributed.yaml 4 5 http://localhost:3000}
 
@@ -657,8 +653,8 @@ server's response.
 In this paper, we have developed Chimera, a simple language agnostic CBSE Framework. 
 The framework is quite simple, yet powerful enough for distributed and parallel computation.
 
-Old UNIX commands like {\it calc} and {\it factor} work perfectly under the framework.
-No additional layer is needed.
+Old UNIX commands like {\it calc} and {\it factor} work perfectly under the framework and
+there is no additional layer needed.
 
 %\appendices
 %\section{Proof of the First Zonklar Equation}
