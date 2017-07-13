@@ -504,16 +504,16 @@ series:
 
 \subsection{JSON Format for Temporary Global Storage and Data Transfer}
 
-As we use Node.js, it is natural to also use Javascript Object Notation as Chimera's
+When Node.js is used, it is common to use Javascript Object Notation as Chimera's
 global storage and network data transfer. JSON (JavaScript Object Notation) is a 
 lightweight data-interchange format \cite{json}.
 
-Once the YAML Chain File parsed, Chimera will create several variables in {\it name : 
-value} pairs. For example, after loading YAML in listing ~\ref{yamlChainExample}, the
-global variables will contains JSON object as in listing ~\ref{jsonStorageInitial}.
+Once the YAML Chain File parsed, Chimera creates several variables in {\it name : 
+value} pairs. For example, after loading YAML in Listing ~\ref{yamlChainExample}, the
+global variables contain JSON object as shown in Listing ~\ref{jsonStorageInitial}.
 
 As the sub-process executed, several others variables will be added as needed. At the
-end of the process, the global storage will contains a, b, c, d, e, and f.
+end of the process, the global storage contains a, b, c, d, e, and f.
 
 \begin{lstlisting}[caption=Initial content of JSON Storage, label=jsonStorageInitial, language=json, basicstyle=\small, breaklines=true]
 {
@@ -528,11 +528,11 @@ Chimera-Sender and Chimera-Service. The data sent to Chimera-Service is shown in
 ~\ref{jsonRequest}, while the data received by Chimera-Sender is shown in Listing
 ~\ref{jsonResponse}.
 
-The JSON request contains 2 keys. The "chain" is to 
-indicate the remote YAML chain file location, while "input" contains array of inputs.
+The JSON request contains two keys, i.e. the "chain" for 
+indicating the remote YAML chain file location and "input" containing array of inputs.
 
-The JSON response contains 3 keys. The {\it success} key is to indicate
-whether the request succeed or failed. {\it errorMessage} contains the error message, and
+Meanwhile, the JSON response contains three keys, i.e. the {\it success} key for indicating
+whether the request succeed or failed, {\it errorMessage} containing the error message and
 {\it response} is the response from the server.
 
 \begin{lstlisting}[caption=JSON Request, label=jsonRequest, language=json, basicstyle=\small, breaklines=true] 
@@ -553,7 +553,7 @@ whether the request succeed or failed. {\it errorMessage} contains the error mes
 
 \subsection{Utilities}
 
-Several utilities were built as component of Chimera Framework.
+Several utilities were built as the components of Chimera Framework, such as:
 
 \begin{itemize}
     \item Chimera-core
@@ -562,17 +562,16 @@ Several utilities were built as component of Chimera Framework.
     \item Chimera-send
 \end{itemize}
 
-Chimera-core is the main component of the framework. User can invoke chimera by
-executing {\it chimera your-chain-file.yaml [input1 [input2] ... ]}. For convenience,
-some shorthand are also provided. For example, you can also call 
-{\it chimera "command:cal"} or even {\it chimera "cal"}.
+Chimera-core is the main component of the framework in which user can invoke Chimera by
+executing {\it chimera your-chain-file.yaml [input1 [input2] ... ]}. In terms of convenience,
+some shorthands are also provided, e.g. the use of chimera 
+{\it chimera "command:cal"} or even {\it chimera "cal"} to call Chimera.
 
-Chimera-eisn take at least 3 input arguments. The first and the second argument should
-be file name, while the third arguments should be the command. The command will only
-be executed when the first argument's modification date is newer than the second 
-argument. EISN itself is stands for "Execute If Source Newer". This is useful if user
-want to use source code of compiled language as an argument. 
-The typical example is shown in Listing ~\ref{chimeraEisn}
+Chimera-eisn takes at least three input arguments. The first and the second argument should
+be file name, while the third arguments should be the command. The command is 
+executed only when the first argument's modification date is newer than the second 
+argument. EISN itself stands for "Execute If Source Newer". This is useful when a user
+wants to use source code of compiled language as an argument as described in Listing ~\ref{chimeraEisn}
 
 \begin{lstlisting}[caption=Chimera-eisn usage example, label=chimeraEisn, language=yaml, basicstyle=\small, breaklines=true]
 ins: a, b
@@ -584,14 +583,13 @@ series:
       command: java add
 \end{lstlisting}
 
-Chimera-serve is a utility to let several chain file being served by a computer.
+Chimera-serve is a utility to allow several chain files being served by a computer.
 The typical usage of chimera-serve is:
 
 {\it TIMEOUT=5000 PUBLISHED=. chimera-serve}
 
-The first two statements are used to define timeout and published directory. Dot means
-current directory. All chain file in published directory is then accessible over
-the network.
+The first two statements are used to define timeout and to publish directory. Dot means
+current directory. All chain files in published directory are accessible over the network.
 
 Chimera-send is a utility to access chimera service.
 The typical usage of chimera-send is: 
@@ -601,7 +599,7 @@ The typical usage of chimera-send is:
 
 \section{Test}
 
-We use Listing ~\ref{distributedParallelYaml} in order to test that Chimera works
+Listing ~\ref{distributedParallelYaml} describes the process of testing whether the Chimera works
 in parallel and distributed environment.
 
 \begin{lstlisting}[caption=Distributed and Parallel YAML-chain Scenario, label=distributedParallelYaml, language=yaml, basicstyle=\small, breaklines=true]
@@ -620,16 +618,14 @@ series:
   - (c,d) -> node programs/add.js -> e
 \end{lstlisting}
 
-The chain contains of 3 processes. Process 1 and process 2 will be executed in parallel.
-After process 1 and process 2 finished, process 3 will be executed. Unlike process 1 and
-process 3, process 2 will run on the server.
+The chain consisted of three processes. Process 1 and process 2 was executed in parallel.
+After process 1 and process 2 finished, process 3 was executed. Unlike process 1 and
+process 3, process 2 will ran on the server.
 
-On the server side, we execute {\it chimera-serve} so that it will listen to client's request
-and gives response as necessary.
+On the server side, {\it chimera-serve} was executed so that it was able to listen the client's request
+and to give response as necessary.
 
-On the client side, we execute {\it chimera tests/chain-distributed.yaml 4 5 http://localhost:3000}
-
-Client log is shown on ~\ref{clientLog} 
+Meanwhile, on the client side, it was executed at {\it chimera tests/chain-distributed.yaml 4 5 http://localhost:3000}. The client log depicts in listing ~\ref{clientLog} 
 
 \begin{lstlisting}[caption=Client Log, label=clientLog, language=bash, basicstyle=\small, breaklines=true]
 START [php programs/add.php "4" "5"] AT    : 15,395,587,568,188
@@ -644,17 +640,16 @@ TAKES 82,541,434 NS
 4
 \end{lstlisting}
 
-From the log, we can see that the second process on client side was executed before the first process finished.
-However, the third process didn't started before the second process started. Process 2 output was taken from the
+From the log, it can be seen that the second process on client side was executed before the first process finished.
+However, the third process didn't start before the second process started. The output of process 2  was taken from the
 server's response.
 
 \section{Conclusion}
 
-In this paper, we have developed Chimera, a simple language agnostic CBSE Framework. 
-The framework is quite simple, yet powerful enough for distributed and parallel computation.
+Chimera, a simple language agnostic CBSE Framework has been developed in this research. The framework is quite simple, yet powerful enough for being used on distributed and parallel computation.
 
-Old UNIX commands like {\it calc} and {\it factor} work perfectly under the framework and
-there is no additional layer needed.
+Old UNIX commands, like {\it calc} and {\it factor}, work perfectly as well under the framework and
+no additional layer needed.
 
 %\appendices
 %\section{Proof of the First Zonklar Equation}
