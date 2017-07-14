@@ -368,20 +368,20 @@ the user.
 
 \section{Chimera Technical Implementation}
 
-We already publish Chimera as an NPM package. It is accessible at 
+Chimera as an NPM package has been published and accessible at 
 https://www.npmjs.com/package/chimera-framework.
 
 
 \subsection{Node.js and NPM As Chimera's Foundation}
 
-Chimera is written in Node.js. Node.js itself is a JavaScript runtime built on Chrome's 
-V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it 
+Chimera was written in Node.js. Node.js itself is a JavaScript runtime built on Chrome 
+V8 JavaScript engine. Node.js uses an event-driven, a non-blocking I/O model that makes it 
 lightweight and efficient \cite{nodejs}. Compared to Python and PHP, Node.js has an 
 overall better performance \cite{lei2014performance}. Node.js is also available for
 Windows, Linux, and Mac.
 
 Node.js has a package-manager named NPM (Node Package Manager). This allows developers
-to use libraries that have already been written by other developers. Chimera depend on 
+to use libraries that have already been written by other developers. Chimera depends on 
 several packages:
 
 \begin{itemize}
@@ -396,13 +396,13 @@ several packages:
     \item querystring
 \end{itemize}
 
-Async package is used to develop the control flow since Node.js has non-blocking
-mechanism. Express is used to build Chimera-Service. Express allows us to catch request
-and send appropriate response. We also use fs-extra in order to do file operations.
-Http and querystring is used to build Chimera-Sender. We also need several functionality
-provided by node-cmd in order to execute other programs through CLI mechanism.
-Js-yaml is used for YAML parsing. At last, we need path and process to determine 
-absolute path of a file as well as changing directory and retrieving input arguments.
+Async package was used to develop the control flow since Node.js has non-blocking
+mechanism. Express which allows us to catch request
+and to send appropriate response was used to build Chimera-Service. Fs-extra was also used in order to do file operations.
+Http and querystring were used to build Chimera-Sender. Several functionalities
+provided by node-cmd were needed in order to execute other programs through CLI mechanism.
+Js-yaml was used for YAML parsing. At last, path and process were needed to determine 
+absolute path of a file as well as to change directory and retrieve input arguments.
 
 \subsection{YAML for Defining Chain}
 
