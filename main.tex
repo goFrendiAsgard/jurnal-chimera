@@ -406,26 +406,25 @@ absolute path of a file as well as changing directory and retrieving input argum
 
 \subsection{YAML for Defining Chain}
 
-YAML (YAML Ain't Markup Language) is a human friendly data serialization standard for 
-all programming languages \cite{yaml}. YAML standard was built in 2001. Unlike JSON,
-YAML depends heavily on indentation. Although the size is bigger compared to JSON, YAML
-is very readable and commonly used for configuration.
+YAML (YAML Ain't Markup Language) standard, when was built in 2001, is a human friendly data serialization standard for 
+all programming languages \cite{yaml}. Unlike JSON,
+YAML depends heavily on indentation. Although its size is bigger compared to JSON, YAML
+is readable and commonly used for configuration.
 
-At the beginning Chimera's chain file was intended to use JSON format. However, we realize 
-that using JSON format might not be a good decision since the developers have to be very 
+At first, Chimera's chain file was intended to use JSON format. However, the use of JSON format might not be a good decision since the developers have to be very 
 careful with commas and curly braces. Another disadvantage
-of JSON is it doesn't provide any intuitive way to add comments, which is quite
+of JSON is that it doesn't provide any intuitive way to add comments, which is quite
 essential in writing algorithms.
 
-Let's consider we have several programs written in Python, Java, PHP, and Javascript. 
-Each of them takes 2 arguments, do simple arithmetic operation, and return a single output. 
-Given a and b, you want to calculate ((a+b) * (a-b)) + a.
+Let consider having several programs written in Python, Java, PHP, and Javascript. 
+Each of them takes two arguments, does simple arithmetic operation, and return a single output. 
+Given a and b, to be calculated ((a+b) * (a-b)) + a.
 
-You can write the process as follow:
+The process csan be written as follow:
 
 {\it f = ((a+b) * (a-b)) + a}
 
-You can then divide this process into several sub-processes:
+Then, this process is divided into several sub-processes:
 
 \begin{itemize}
     \item Process 1: c = a + b
@@ -434,13 +433,13 @@ You can then divide this process into several sub-processes:
     \item Process 4: f = e + a
 \end{itemize}
 
-Process 1 and process 2 will be executed parallelly since they are independent to each other. 
-You don't need to solve process 1 in order to do process 2 and vice versa.
+Process 1 and process 2 are executed parallelly since they are independent to each other. 
+It is not necessary to solve process 1 first in order to do process 2 and vice versa.
 
-After Process 1 and process 2 finished, process 3 and process 4 should be executed sequentially. 
-Process 3 depend on process 1 and 2, while process 4 depend on process 3
+After process 1 and process 2 finished, process 3 and process 4 should be executed sequentially. 
+Process 3 depends on process 1 and 2, while process 4 depends on process 3
 
-Listing ~\ref{yamlChainExample} is the example of our YAML formatted chain file.
+Listing ~\ref{yamlChainExample} is the example of YAML formatted chain file.
 
 \begin{lstlisting}[caption=YAML Chain Example, label=yamlChainExample, language=yaml, basicstyle=\small, breaklines=true]
 ins: a,b # The inputs of main process 
@@ -469,17 +468,14 @@ series:
     command: node programs/add.js
 \end{lstlisting}
 
-Semantically, each node in the YAML contains of {\it ins} and {\it out }. Chimera 
-assumes every program can has more than one inputs but only provide single output. 
+Similar to other programs, semantically, each node in YAML contains {\it ins} and {\it out } which means that the program might have more than one inputs but it only provide one single output. 
 The last element of the node is either {\it command}, {\it parallel}, or {\it series}. 
 If the process has no other sub-process, {\it command} is used. Otherwise, if the
-process contains another sub-process, {\it parallel} or {\it series} is used depend
-on the desired execution flow. The best practice is, when two or more processes
-doesn't depend on each other, parallel flow is recommended.
-
-For convenience, we also provide single-line shorthand for {\it ins}, {\it out}, 
+process contains another sub-process, {\it parallel} or {\it series} is used depending
+on the desired execution flow. The best practice is that parallel flow is recommended, when two or more processes
+are independent on each other. Listing  ~\ref{yamlShort} provides single-line shorthand for {\it ins}, {\it out}, 
 and {\it command}. {\it ins} should be written inside parantheses, while {\it ->}
-act as separator between {\it ins}, {\it command}, and {\it output}. For example,
+act as separator between {\it ins}, {\it command}, and {\it output}. 
 Listing  ~\ref{yamlShort} is equal to Listing ~\ref{yamlChainExample}.
 
 \begin{lstlisting}[caption=YAML Chain With Shorthand, label=yamlShort, language=yaml, basicstyle=\small, breaklines=true]
@@ -506,13 +502,9 @@ series:
 
 When Node.js is used, it is common to use Javascript Object Notation as Chimera's
 global storage and network data transfer. JSON (JavaScript Object Notation) is a 
-lightweight data-interchange format \cite{json}.
-
-Once the YAML Chain File parsed, Chimera creates several variables in {\it name : 
+lightweight data-interchange format \cite{json}. Once the YAML Chain File parsed, Chimera creates several variables in {\it name : 
 value} pairs. For example, after loading YAML in Listing ~\ref{yamlChainExample}, the
-global variables contain JSON object as shown in Listing ~\ref{jsonStorageInitial}.
-
-As the sub-process executed, several others variables will be added as needed. At the
+global variables contain JSON object as shown in Listing ~\ref{jsonStorageInitial}. As the sub-process executed, several others variables will be added as needed. At the
 end of the process, the global storage contains a, b, c, d, e, and f.
 
 \begin{lstlisting}[caption=Initial content of JSON Storage, label=jsonStorageInitial, language=json, basicstyle=\small, breaklines=true]
