@@ -37,21 +37,21 @@ Email: jozuafp@stiki.ac.id}}
 
 \begin{abstract}
 %\boldmath
-Component Based Software Engineering (CBSE) is a branch of software 
+Component-Based Software Engineering (CBSE) is a branch of software 
 engineering that emphasizes the separation of concerns with respect to the 
 wide-ranging functionality available throughout a given software system.  The 
-main advantage of CBSE is separation of components. A single component will 
-only focus on a single task or related collection of tasks. Allowing software 
+main advantage of CBSE is separation of components. A single component  
+only focus on a single task or a related collection of tasks which allowing software 
 developer to reuse the component for other use-cases. By using this approach, 
-software developer doesn't need to deal with spaghetti code. Several 
-approaches have been developed in order to achieve ideal CBSE. The earliest 
+spaghetti code is no longer used by software developers. Several 
+approaches have already been developed in order to achieve ideal CBSE. The earliest 
 implementation was UNIX pipe and redirect, while the newer approach including 
-CORBA, XML-RPC, and REST. In this paper, we introduce Chimera, our simple 
-language-agnostic framework. Chimera was built on top of Node.js. This framework
-    allows developer to build pipe flow in a chain (a YAML formatted file) 
+CORBA, XML-RPC, and REST. Therefore, a simple language-agnostic framework, 
+so called Chimera, was developed in this research. Chimera was built on top of Node.js. 
+This framework allows developer to build pipe flow in a chain (a YAML formatted file) 
 as well as defining global variables. Compared to UNIX named and unnamed pipe, 
 this format is easier and more flexible. On the other hand, unlike XML-RPC, 
-REST, and CORBA, chimera is much simpler. HTTP protocol is only required for
+REST, and CORBA, Chimera is much simpler. HTTP protocol is only required for
 distributed computing scenario. Nor it require the components to be aware that 
 they works on top of the framework.
 \end{abstract}
@@ -65,54 +65,54 @@ Chimera, Language Agnostic, Component-Based Software Engineering, CBSE, Node.js,
 
 \section{Introduction}
 
-Component based software development approach is based on the idea to develop 
+Component-based software development approach is based on the idea of developing 
 software systems by selecting appropriate off-the shelf components and then to 
 assemble them with a well-defined software architecture \cite{kaur2010component}.
 
-In order to implement component-based software engineering (CBSE), several 
-approaches has beeen performed. The earliest attempt was UNIX pipe mechanism 
+In order to implement Component-Based Software Engineering (CBSE), several 
+approaches have been performed. The earliest attempt was UNIX pipe mechanism 
 \cite{mcilroy1968mass}. Pipe mechanism was not the only attempt to achieve CBSE.
 The more modern approaches including XML-RPC \cite{xmlrpc} and JSON-RPC \cite{jsonrpc}. 
 Later, Object Management Group (OMG) introduced a new standard named CORBA (Common
 Object Request Broker Architecture) \cite{corba}. Another interesting approach was 
 introduced by Two Sigma Open Source. Two Sigma created a platform known as Beaker
-Notebook \cite{beakernotebook}. Beaker Notebook is mainly used for research purpose. 
+Notebook \cite{beakernotebook} which is mainly used for research purposes. 
 On 2016, Feilhauer and Sobotka introduce another platform called DEF 
 \cite{feilhauer2016def}.
 
-Aside from Unix Pipe, all other mechanism require the components to be aware that 
-they are parts of the framework. This means that you cannot use old programs (e.g:
-{\it factor} and {\it calc}) as XML-RPC or CORBA component. At least additional layer
+Despite Unix Pipe, the other mechanisms require the components to be aware that 
+they are parts of the framework. It means that old programs (e.g.
+{\it factor} and {\it calc}) as XML-RPC or CORBA component. At least, additional layer
 and adjustment have to be built.
 
-CORBA, XML-RPC, SOAP, and JSON-RPC also needs HTTP protocol since they were designed for 
-in client-server architecture. It imply that developers need to build a web server in 
-order to use the mechanisms. However, in any use case that only need a single computer,
+Moreover, CORBA, XML-RPC, SOAP, and JSON-RPC also need HTTP protocol since they were designed for 
+client-server architecture. It imply that the developers need to build a web server for being able 
+to use the mechanisms. However, in any use-case that only need a single computer,
 this is not ideal.
 
-Considering the advantages and disadvantages of earlier approaches, in this paper, 
-we develop a new CBSE framework named Chimera. This framework is much simpler since
-HTTP is only required for distributed computation. Chimera also use CLI mechanism that
-works in almost all OS and most programming language.
-The only dependency of Chimera are Node.js and several NPM packages.
+Considering the advantages and disadvantages of earlier approaches, a new CBSE framework, 
+named Chimera, was developed in this research. This framework is much simpler since
+HTTP is required for distributed computation only. Chimera also use CLI mechanism that
+works in almost all OS and in most programming language.
+The only dependency of Chimera is Node.js and several NPM packages.
 
 \section{Previous Research}
 
-In this section we will have an indepth discussion about previous CBSE implementation 
+This section presents an in-depth discussion on the previous CBSE implementation,  
 preceeding Chimera.
 
 
 \subsection{UNIX Pipe}
 
-The very first implementation of CBSE was UNIX pipe mechanism \cite{mcilroy1968mass}. 
-UNIX pipe allows engineer to pass output of a single program as an input of 
-another program. Since a lot of server is UNIX or linux based, this pipe 
-mechanism availability is very high. Even DOS also provide similar mechanism 
+The very first implementation of CBSE was UNIX pipe mechanism \cite{mcilroy1968mass} 
+which allowed engineer to pass output of a single program as an input for 
+another program. Since a lot of server was UNIX or linux based, this pipe 
+mechanism availability was very high. Even, DOS also provide similar mechanism 
 \cite{dos7command}.
 
-Pipe mechanism works by letting a program's standard output being used as another
-program's standard input. By putting several programs into a single pipeline, we can
-compose a more complex process as shown in figure ~\ref{fig:unixPipe}.
+Pipe mechanism work by allowing a program's standard output being used as another
+program's standard input. By placing several programs into a single pipeline, 
+a more complex process might be composed as depicted in figure ~\ref{fig:unixPipe}.
 
 \begin{figure}
 	\centering
@@ -122,10 +122,10 @@ compose a more complex process as shown in figure ~\ref{fig:unixPipe}.
 	\label{fig:unixPipe}
 \end{figure}
 
-For more explanation, we provide a simple test case. Consider two different programs,
-{\it factor} and {\it calc}. Given a single argument, {\it factor} will show you all 
-factors of a number. Given also another single argument, {\it calc} will show you the result 
-of an arithmetic operation. Listing ~\ref{factorAndCalc} shows the outputs of both commands
+For example, consider two different programs,
+{\it factor} and {\it calc}. When a single argument is given, {\it factor} presents all 
+factors of a number. Next, when a single argument is given, {\it calc} presents the result 
+of an arithmetic operation. Listing ~\ref{factorAndCalc} depicts the output of both commands.
 
 \begin{lstlisting}[caption=Usage of factor and calc, label=factorAndCalc, language=bash, basicstyle=\small, breaklines=true]
 #! factor 20
@@ -144,14 +144,11 @@ command as shown in listing ~\ref{unnamedPipeExample}
 10: 2 5
 \end{lstlisting}
 
-Beside of it's high availability and simplicity, UNIX pipe also supports parallel
+Beside of its high availability and simplicity, UNIX pipe also supports parallel
 processing through named-pipe mechanism. The named-pipe mechanism can be used to 
-provide cheap parallel processing \cite{conway2003parallel}. 
-
-In listing ~\ref{namedPipeExample} we show a simple named-pipe mechanism. First, we make
-a named pipe called {\it backpipe} by using {\it mkfifo} command. Next, we redirect
-standard output of {\it calc} and {\it factor} into {\it backpipe}. Finally, we show
-the content of the {\it backpipe} by using {\it cat} command.
+provide cheap parallel processing \cite{conway2003parallel}. As presented in 
+listing ~\ref{namedPipeExample} a named pipe called {\it backpipe} was made by using {\it mkfifo} command. 
+Then, the standard output of {\it calc} and {\it factor} is added into the {\it backpipe}. Finally, the content of the {\it backpipe} is presented using {\it cat} command.
 
 \begin{lstlisting}[caption=Named pipe example, label=namedPipeExample, language=bash, basicstyle=\small, breaklines=true]
 #! mkfifo backpipe 
@@ -162,16 +159,13 @@ the content of the {\it backpipe} by using {\it cat} command.
 \end{lstlisting}
 
 Although pipe mechanism provides high availability and capability, 
-it has several limitations. For example, named-pipe needs external file as temporary 
-container. The external file has to be deleted once the operation performed. 
-This approach is not straight forward, thus, some efforts needed in order to 
-build a working named-pipe based computation. 
+it has several limitations. For example, named-pipe mechanism needs external file, which has to be deleted once the operation performed, as a temporary container. This approach does not work straight forward, thus, some efforts needed in order to 
+build a working named-pipe-based-computation. 
 
-For simple use cases involving a single computer, pipe mechanism is quite ideal. 
-However, when the program become more complicated, memory sharing  and network access 
-is needed. Using a mere pipe mechanism to support those requirement needs a lot of 
-efforts. Although it is possible, the readability of the script is going to be 
-severely reduced.
+Pipe mechanism is suitable for simple use-cases involving a single computer. 
+However, at some point, memory sharing  and network access are needed when the program become more complicated. 
+Using a mere pipe mechanism to support those requirement needs a lot of 
+efforts. Although it is possible, the readability of the script is severely reduced.
 
 
 \subsection{CORBA}
@@ -179,15 +173,15 @@ severely reduced.
 From CORBA official website, CORBA is defined as standard created by the Object 
 Management Group designed to facilitate the communication of systems 
 that are deployed on diverse platforms \cite{corba}. CORBA 1.0 was released on August 
-1991. The last version, CORBA 3.3 was released on November 2012 \cite{corbaspec}.
+1991. The last version, CORBA 3.3, was released on November 2012 \cite{corbaspec}.
 CORBA is heavily affected by object oriented paradigm.
 
-The main component of CORBA is the Object Request Broker (ORB). ORB act as bridge 
+The main component of CORBA is the Object Request Broker (ORB) which acts as a bridge 
 between client and service provider. The service provider (server) provide an 
-implementation of an object. While the client can be a user interface that depend on
-the service provided by the server. Both, client and server needs to agree about the
-object structure. This agreement is written in an Interface Description Language (IDL).
-The IDL in server side is called skeleton, while the IDL in client side is called stub.
+implementation of an object, while the client can be a user interface that depend on
+the service provided by the server. Both, client and server need to agree about the
+object structure. This agreement is written in an Interface Description Language (IDL),
+the IDL which is called skeleton in server side, and is called stub in client side.
 
 \begin{figure}
 	\centering
@@ -197,12 +191,10 @@ The IDL in server side is called skeleton, while the IDL in client side is calle
 	\label{fig:orb}
 \end{figure}
 
-Figure ~\ref{fig:orb} shows the interaction between ORB, server, and client.
-IDL can be written in Java, C++, or any other language, depend on the implementation of
-the ORB.
-
-An IDL example is shown in listing ~\ref{corbaIDLExample}.
-
+IDL can be written in Java, C++, or any other language, depending on the implementation of
+the ORB. An IDL example is shown in listing ~\ref{corbaIDLExample}. 
+The interaction between ORB, server, and client depicts in figure ~\ref{fig:orb}.
+ 
 \begin{lstlisting}[caption=CORBA IDL Example in C++, label=corbaIDLExample, language=c, basicstyle=\small, breaklines=true]
 module Finance {
   typedef sequence<string> StringSeq;
@@ -221,25 +213,23 @@ module Finance {
 };
 \end{lstlisting}
 
-Compared to UNIX Pipe, CORBA is more feature rich. Unfortunately, this also means 
+Compared to UNIX Pipe, CORBA has more complex and rich features. Unfortunately, this also means 
 that CORBA is also more complex than UNIX Pipe. The developer needs to embrace OOP 
 paradigm as well as being familiar with IDL and the CORBA architecture. 
 Despite of it's language agnoticism, some non OOP language (e.g: Matlab and GNU Octave) 
-is not supported by CORBA \cite{feilhauer2016def}. CORBA also suffer of several 
-criticism \cite{henning2006rise}. Even OOP as the foundation of CORBA, also face several 
-critics \cite{hadar2013intuition} regardless of it's popularity.
+is not supported by CORBA \cite{feilhauer2016def}. CORBA also suffers of several 
+criticism \cite{henning2006rise}. Regardless to it's popularity, there are many critics towards OOP, 
+as the foundation of CORBA \cite{hadar2013intuition}.
 
 
 \subsection{XML-RPC, SOAP, and JSON-RPC}
 
-XML-RPC is a specification and a set of implementations that allow software running on 
-disparate operating systems, running in different environments to make procedure 
-calls over the Internet. XML-RPC using HTTP as the transport and XML as the encoding.
-It is designed to be as simple as possible, while allowing complex data structures to 
-be transmitted, processed and returned \cite{xmlrpc}.
-
-SOAP stands for Simple Object Access Protocol. SOAP is a lightweight protocol 
-intended for exchanging structured information in a decentralized, distributed 
+XML-RPC is a specification and a set of implementations that allows software running on 
+disparate operating systems and in different environments to make procedure 
+calls over the Internet. XML-RPC use HTTP as the transport and XML as the encoding.
+It is designed to be as simple as possible, meanwhile it allows complex data structures to 
+be transmitted, processed and returned \cite{xmlrpc}. SOAP stands for Simple Object Access Protocol. 
+SOAP is a lightweight protocol intended for exchanging structured information in a decentralized, distributed 
 environment \cite{soap}. SOAP was built on top of XML-RPC. It uses XML format as 
 well as HTTP protocol.
 
@@ -247,33 +237,30 @@ JSON-RPC is lightweight remote procedure call protocol similar to XML-RPC
 \cite{jsonrpc}. The main difference between XML-RPC and JSON-RPC is the data transfer
 format. In most cases, JSON is more lightweight compared to XML.
 
-XML-RPC, SOAP, and JSON-RPC are heavily depend on HTTP for inter-process-communication 
+XML-RPC, SOAP, and JSON-RPC heavily depend on HTTP for their inter-process-communication 
 protocol. This is ideal for client-server architecture as HTTP is quite common and
-easy to be implemented.
-
-Those three methods are basically another implementation of RPC (Remote Procedure Call). 
+easy to be implemented. Those three methods are basically another implementation of RPC (Remote Procedure Call). 
 Compared to CORBA, these three methods are more flexible. With the exception of SOAP,
 they don't enforce developer to embrace OOP paradigm.
 
-In terms of language agnoticism, XML-RPC and JSON-RPC support any language that can
+In terms of language agnoticism, XML-RPC and JSON-RPC support any languages that can
 access HTTP and parse/create the data format. However, in order to use these protocols,
-a developer should be aware that the components they built will works as a part of the
-bigger system. Tools or programs that were built without this consideration will need
-some adjustment or additional layers in order to make them works with the protocol.
+a developer should be aware that the components they built work as a part of a
+bigger system. Tools or programs that built without this consideration need
+some adjustments or additional layers in order to make them work with the protocol.
 For example, using {\it{factor}} or {\it{calc}} as components of XML-RPC might require
 developer to build another program to catch the output and wrap it in XML envelope.
 
 \subsection{DEF}
 
-DEF - A programming language agnostic framework and execution environment 
+DEF is a programming language agnostic framework and execution environment 
 for the parallel execution of library routines \cite{feilhauer2016def}. 
-DEF focus on parallel processing by enabling shared memory and message passing. 
-DEF needs several components, using JSON as data exchange format. 
-Compared to CORBA, Matlab, and Parallel Fortran, DEF is better in term of 
-parallelism and language agnosticism. CORBA for example, doesn't support matlab and 
-octave \cite{feilhauer2016def}. 
+DEF focuses on parallel processing by enabling shared memory and message passing. 
+DEF needs several components and so JSON as data exchange format. 
+DEF is better in terms of parallelism and language agnosticism compared to CORBA, Matlab, and Parallel Fortran. 
+CORBA for example, doesn't support matlab and octave \cite{feilhauer2016def}. 
 
-However, DEF still depend on HTTP for inter process communication. Consequently, 
+However, DEF still depends on HTTP for inter-process communication. Consequently, 
 in order to build DEF architecture, a web server is needed. Also, the developer needs 
 to make sure that each components aware of the architecture. As in CORBA, XML-RPC, 
 SOAP, and JSON-RPC, additional layer might be needed to make use of old components.
@@ -281,14 +268,14 @@ SOAP, and JSON-RPC, additional layer might be needed to make use of old componen
 \subsection{Beaker Notebook}
 
 Beaker Notebook \cite{beakernotebook} is also considered as an interesting 
-approach of CBSE. The platform was developed by Two Sigma Open Source and 
-mainly used for research use.  Beaker provides native autotranslation that 
+approach of CBSE. The platform was developed by Two Sigma Open Source 
+for research purposes only. Beaker Notebook provides native autotranslation that 
 lets a developer declare specific variables in a cell in one language, 
-then access them seamlessly in a different cell and language.
+and access them seamlessly in a different cell and language.
 
-For example, in listing ~\ref{beakerPython}, we create a 6 by 4 table populated with
-random numbers. The table is then saved as global variable df. 
-Later in listing ~\ref{beakerR}, we load the data and show it.
+Llisting ~\ref{beakerPython} describes a 6 by 4 table populated with
+random numbers. The table is, then, saved as global variable df. 
+The data is loaded and showed in listing ~\ref{beakerR}.
 
 \begin{lstlisting}[caption=Beaker Python Cell Example, label=beakerPython, language=python, basicstyle=\small, breaklines=true]
 import pandas
@@ -299,63 +286,56 @@ beaker.df = pandas.DataFrame(np.random.randn(6, 4), columns = list('ABCD'))
 beaker::get('df')
 \end{lstlisting}
 
-Beaker notebook is good for prototyping. It also has a very simple API compared to
+Moreover, Beaker Notebook is good for prototyping. It also has a very simple API compared to
 CORBA or XML-RPC. However, it still require the developer to add additional layer
 in order to use old components like {\it factor} or {\it calc}
 
 
 \section{Chimera Architecture}
 
-From the previous section we conclude that Unix Pipe Mechanism was the simplest one
+From the previous section, it can be concluded that Unix Pipe Mechanism was the simplest one
 despite of it's lack of features. We also notice that Beaker Notebook's like memory-
 sharing mechanism is much simpler compared to CORBA and other network-based protocols.
 
-Our goal is to make a very simple framework that is truly language agnostic. A framework
-that also play nice with old components and not enforce developer to embrace any 
-particular programming paradigm. Also, we try to avoid making unnecessary new standard.
-By make use of technologies most developers familiar with, we hope the adaptation is
-going to be easier.
-
-We assume that most programming languages are supporting command line interface and
-command line arguments. By creating a framework that depend on command line protocol,
-we aim on maximum language agnosticism with less effort.
+The objective of this research is to make a very simple framework that is truly language agnostic. The framework
+should be able to accomodate with old components and should not enforce developers to embrace any 
+particular programming paradigms. Moreover, making unnecessary new standard is avoided in this research.
+By making use of technologies that most developers are familiar with, it is expected that the adaptation is
+going to be easier. It is assumed that most programming languages supports command line interface and
+command line arguments. By creating a framework that depends on command line protocol,
+maximum language agnosticism with less effort is achieved.
 
 In figure ~\ref{fig:chimeraArchitecture} we show the architecture of Chimera. Suppose
 {\it Program1} and {\it Program2} should run in parallel, and {\it Program3} should be
 executed once {\it Program1} and {\it Program2} finished.
 
-Chimera architecture contains of several parts. The Chimera Core is the main component 
-responsible for orchestrating external programs into a single process flow. 
-Chimera core can access temporary memory which is no other than a JSON Object placed in
-memory. All external program's input and output are copied into this JSON Object.
-The process flow itself is written in a YAML Chain File. YAML is a common format for
+Chimera architecture consists of several parts. The Chimera Core is the main component 
+that responsible for orchestrating external programs into a single process flow. 
+Chimera Core can access temporary memory which is no other than a JSON Object placed in
+memory. All input and output of external programs are copied into this JSON Object.
+The process flow itself written in a YAML Chain File. YAML is a common format for
 configuration. YAML depends on indentation and whitespace, making the format easily 
-readable. Using these three components, Chimera is able to do everything UNIX Pipe can do. 
-In fact, developers can even define UNIX Pipe inside Chimera.
-
-The other two components are Chimera-Service and Chimera-Sender. These two components
-are responsible for HTTP communication. Chimera-Service and Chimera-Sender brings the 
+readable. Using these three components, Chimera is able to do everything that UNIX Pipe is able to do. 
+In fact, developers can even define the UNIX Pipe inside Chimera. The other two components are Chimera-Service and Chimera-Sender. These two components are responsible for HTTP communication. Chimera-Service and Chimera-Sender brings the 
 entire framework into distributed environment.
 
-In figure ~\ref{fig:chimeraArchitecture}, the process started when the user ask Chimera 
-to execute the process. User should provide the YAML file location and the process's
-inputs. After getting a request from user, Chimera will read the YAML file, retrieving
-it's content, and initiating global variables in temporary memory. The framework then
-executing external programs sequentially or parallelly, depend on the content of the
-YAML file.
+Figure ~\ref{fig:chimeraArchitecture} describes the process started when the user ask Chimera 
+to execute the process. User should provides the YAML file location and the process
+inputs. After getting a request from user, Chimera read the YAML file, retrieving
+content, and initiating global variables in temporary memory. The framework, then,
+executes external programs sequentially or parallel, depending on the content of the
+YAML file. When the external programs are located in the same computer, Chimera-Core executes the
+programs and provides the required stdin parameters which are taken from
+temporary memory. After the program executed successfully, Chimera-Core  reads the 
+stdout and saves it in the temporary memory for further process.
 
-If the external programs are located in the same computer, Chimera-Core will execute the
-programs and provide the required stdin parameters. The stdin parameters are taken from
-temporary memory. After the program executed successfully, Chimera-Core will read the 
-stdout and save it into temporary memory for further process.
-
-If the programs are located in the different computer, the user should provide
-invocation of Chimera-Sender. Chimera-Sender will contact Chimera-Service to run 
-Chimera-Core remotely. Once the process completed, Chimera-Service will send the
-response into Chimera-Sender. At last, Chimera-Sender will send the response back to
+In case the programs are located in different computer, the user should provide
+invocation of Chimera-Sender then Chimera-Sender contacts Chimera-Service to run 
+Chimera-Core remotely. Once the process completed, Chimera-Service sends 
+response back to Chimera-Sender. At last, Chimera-Sender sends the response back to
 the local Chimera-Core.
 
-At the end of the process, Chimera will return the output of those chain-processes to 
+At the end of the process, Chimera returns the output of those chain-processes to 
 the user.
 
 \begin{figure*}
