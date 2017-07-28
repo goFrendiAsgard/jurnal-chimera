@@ -1,0 +1,60 @@
+START [remote task] AT      : 47,744,595,549,542
+END [remote task] AT        : 47,745,614,167,635
+PROCESS [remote task] TAKES : 1,018,518,174
+START [breakfast] AT      : 47,744,418,078,170
+END [breakfast] AT        : 47,745,445,928,696
+PROCESS [breakfast] TAKES : 1,027,743,061
+START [read news] AT      : 47,744,409,895,995
+END [read news] AT        : 47,746,430,672,916
+PROCESS [read news] TAKES : 2,020,670,863
+START [go to work] AT      : 47,746,594,336,741
+END [go to work] AT        : 47,747,613,760,374
+PROCESS [go to work] TAKES : 1,019,317,050
+START [remote task] AT      : 47,748,418,590,269
+END [remote task] AT        : 47,749,437,089,694
+PROCESS [remote task] TAKES : 1,018,398,087
+START [breakfast] AT      : 47,748,300,114,090
+END [breakfast] AT        : 47,749,318,902,337
+PROCESS [breakfast] TAKES : 1,018,680,645
+START [read news] AT      : 47,748,249,822,789
+END [read news] AT        : 47,750,271,922,115
+PROCESS [read news] TAKES : 2,022,020,099
+START [go to work] AT      : 47,750,432,374,470
+END [go to work] AT        : 47,751,450,888,411
+PROCESS [go to work] TAKES : 1,018,404,338
+START [remote task] AT      : 47,752,299,828,398
+END [remote task] AT        : 47,753,318,371,202
+PROCESS [remote task] TAKES : 1,018,442,000
+START [breakfast] AT      : 47,752,124,498,171
+END [breakfast] AT        : 47,753,150,546,875
+PROCESS [breakfast] TAKES : 1,025,978,627
+START [read news] AT      : 47,752,086,910,517
+END [read news] AT        : 47,754,116,757,230
+PROCESS [read news] TAKES : 2,029,767,755
+START [go to work] AT      : 47,754,278,337,168
+END [go to work] AT        : 47,755,296,503,300
+PROCESS [go to work] TAKES : 1,018,081,723
+START [remote task] AT      : 47,756,140,213,722
+END [remote task] AT        : 47,757,158,236,804
+PROCESS [remote task] TAKES : 1,017,945,748
+START [breakfast] AT      : 47,755,984,859,199
+END [breakfast] AT        : 47,757,003,625,972
+PROCESS [breakfast] TAKES : 1,018,680,660
+START [read news] AT      : 47,755,922,477,478
+END [read news] AT        : 47,757,942,567,128
+PROCESS [read news] TAKES : 2,019,982,028
+START [go to work] AT      : 47,758,117,355,456
+END [go to work] AT        : 47,759,136,236,622
+PROCESS [go to work] TAKES : 1,018,771,430
+START [remote task] AT      : 47,759,977,600,307
+END [remote task] AT        : 47,760,997,669,198
+PROCESS [remote task] TAKES : 1,019,953,711
+START [breakfast] AT      : 47,759,810,538,625
+END [breakfast] AT        : 47,760,839,176,654
+PROCESS [breakfast] TAKES : 1,028,533,303
+START [read news] AT      : 47,759,759,366,114
+END [read news] AT        : 47,761,786,124,719
+PROCESS [read news] TAKES : 2,026,652,760
+START [go to work] AT      : 47,761,957,178,496
+END [go to work] AT        : 47,762,975,621,817
+PROCESS [go to work] TAKES : 1,018,341,461

@@ -1,0 +1,10 @@
+vars:
+    results : []
+series:
+    - cat config.json -> configs
+    - parallel:
+        - (configs.0.name, configs.0.time) -> chimera-send http://localhost:3000 server-process.yaml -> results.0 
+        - (configs.1.name, configs.1.time) -> node process.js -> results.1 
+        - (configs.2.name, configs.2.time) -> node process.js -> results.2 
+    - (configs.3.name, configs.3.time) -> node process.js -> results.3
+    - (results) -> node combine.js 
