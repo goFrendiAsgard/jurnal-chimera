@@ -2,7 +2,8 @@
 \usepackage{blindtext, graphicx}
 \usepackage{amsmath}
 \usepackage{listings}
-
+\usepackage{booktabs}
+\usepackage{multirow}
 
 \ifCLASSINFOpdf
 \else
@@ -47,17 +48,18 @@ wide-ranging functionality available throughout a given software system.  The
 main advantage of CBSE is separation of components. A single component  
 only focus on a single task or a related collection of tasks which allowing software 
 developer to reuse the component for other use-cases. By using this approach, 
-spaghetti code is no longer used by software developers. Several 
-approaches have already been developed in order to achieve ideal CBSE. The earliest 
-implementation was UNIX pipe and redirect, while the newer approach including 
-CORBA, XML-RPC, and REST. Therefore, a simple language-agnostic framework, 
-so called Chimera, was developed in this research. Chimera was built on top of Node.js. 
-This framework allows developer to build pipe flow in a chain (a YAML formatted file) 
-as well as defining global variables. Compared to UNIX named and unnamed pipe, 
-this format is easier and more flexible. On the other hand, unlike XML-RPC, 
-REST, and CORBA, Chimera is much simpler. HTTP protocol is only required for
-distributed computing scenario. Nor it require the components to be aware that 
-they works on top of the framework.
+software developers can focus on single components rather than dealing with complex 
+monolithic source code. Several approaches have already been developed in order to 
+achieve ideal CBSE. The earliest implementation was UNIX pipe and redirect, 
+while the newer approach including CORBA, XML-RPC, and REST. 
+Unfortunately those approaches are either too complex or lack of features.
+Therefore, a simple language-agnostic framework, so called Chimera, was developed 
+in this research. Chimera was built on top of Node.js. This framework allows developer 
+to build pipe flow in a chain (a YAML formatted file) as well as defining global variables. 
+Compared to UNIX named and unnamed pipe, this format is easier and more flexible. 
+On the other hand, unlike XML-RPC, REST, and CORBA, Chimera is much simpler. 
+HTTP protocol is only required for distributed computing scenario. Nor it require the 
+components to be aware that they works on top of the framework.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -94,10 +96,18 @@ client-server architecture. It imply that the developers need to build a web ser
 to use the mechanisms. However, in any use-case that only need a single computer,
 this is not ideal.
 
-Considering the advantages and disadvantages of earlier approaches, a new CBSE framework, 
-named Chimera, was developed in this research. This framework is much simpler since
-HTTP is required for distributed computation only. Chimera also use CLI mechanism that
-works in almost all OS and in most programming language.
+The goal of this research is to provide simple language agnostic framework that allows developer to:
+
+\begin{itemize}
+    \item Reuse old components without building any additional layer.
+    \item Define process flow in readable and straight-forward format.
+    \item Work on both, stand alone and distributed environment seamlessly.
+\end{itemize}
+
+
+The framework was named Chimera. Compared to CORBA, DEF, XML-RPC, and JSON-RPC, 
+Chimera is much simpler since HTTP is required for distributed computation only. 
+Chimera also use CLI mechanism that works in almost all OS and in most programming language.
 The only dependency of Chimera is Node.js and several NPM packages.
 
 \section{Previous Research}
@@ -293,6 +303,77 @@ beaker::get('df')
 Moreover, Beaker Notebook is good for prototyping. It also has a very simple API compared to
 CORBA or XML-RPC. However, it still require the developer to add additional layer
 in order to use old components like {\it factor} or {\it calc}
+
+
+\section{Research Goal}
+
+Our goal was to build framework that has excellent backward component compatibility, 
+format readability, as well as distributed and stand alone compatibility. 
+
+
+\subsection{Backward Component Compatibility}
+
+Our greatest task was to let developers use the pre-existing components without building 
+adjustment layers.
+
+{\it factor}, {\it calc} and most UNIX utilities were excellent example for this case.
+Those programs were already used before CORBA, XML-RPC and JSON-RPC were built.
+
+Unfortunately, those old components are not compatible with CORBA or any newer frameworks.
+Consequently, developers has to built their own adjustment layer. This adjustment layer has 
+to do at least two works:
+
+\begin{itemize}
+    \item Execute the component and catch the output. 
+    \item Reformat the output into JSON/XML object.
+\end{itemize}
+
+Moreover, even a component that was intentionally developed for CORBA needs it's own IDL Layer.
+
+Compared to CORBA and its successsors, UNIX Pipe Mechanism doesn't need any additional layer.
+This has been already demonstrated in the previous section.
+
+UNIX Pipe runs on command line interface, which is consistent and still popularly used today.
+Many programs were built with this consideration. For example, {\it nmap}, a port-scanning 
+program for penetration testing, is basically run on CLI. The GUI  {\it zenmap} is no other than
+additional GUI Layer that run its CLI counterpart.
+
+Chimera has similar mechanism to UNIX Pipe. The only difference is, Chimera doesn't immediately 
+redirect the output of a component as the input of another. Contrary, a global JSON objects act as
+temporary storage.
+
+
+\subsection{Readability of The Format}
+
+Using CORBA library, as well as HTTP request, developers can easily call any remote component and 
+use it in their application.
+
+In CORBA, developers has to initialize Orb object before being able to access remote resources. There
+are several implementation of CORBA. Thus the format readability of component definition is solely depend
+on the programming language on the client side.
+
+XML-RPC, JSON-RPC, REST also have similar protocol. However the later technologies are more flexible. 
+In REST, for example, developers are free to define their own custom protocol.
+
+Beaker Notebook also has similar approach. API for storing and receiving the data among different programming
+languages were provided. The readability is vary between the languages. Accessing the API in Python for example, 
+require less line compared to accessing the same API in Java.
+
+Those approaches require developer to dive into client's source code in order to define or understand the data flow.
+
+In terms of readability, Unix Unnamed Pipe Mechanism is more readable. Pipe and redirection symbol perfectly represent
+the data flow itself in a single line.
+
+However, when developers start to work with parallel scenario, named pipe is needed. Named pipe is far more complex since
+it requires temporary files to act as buffer. This also severely reduce the readability of the data flow.
+
+Chimera tried to overcome this problem by providing a global JSON objects as temporary storage. 
+The storage has the same role as named pipe. However, unlike named pipe, it doesn't affect how the data-flow written.
+
+\subsection{Distributed and Stand Alone Interoperability}
+
+In CORBA, XML-RPC, and JSON-RPC, network protocol has to be present either the developers need to access 
+remote or local component.
 
 
 \section{Chimera Architecture}
@@ -581,16 +662,14 @@ in parallel and distributed environment.
 \begin{lstlisting}[caption=Distributed and Parallel YAML-chain Scenario, label=distributedParallelYaml, language=yaml, basicstyle=\small, breaklines=true]
 ins: a,b,server
 out: e
-vars:
-  server_chain: tests/chain-minimal.yaml 
 verbose: true
 series:
   - parallel:
-      # Process 1
+      # P 1
       - (a,b) -> php programs/add.php -> c
-      # Process 2
-      - (server, server_chain, a,b) -> chimera-send -> d
-  # Process 3
+      # P 2
+      - (server, 'tests/chain-add.yaml', a,b) -> chimera-send -> d
+  # P 3
   - (c,d) -> node programs/add.js -> e
 \end{lstlisting}
 
@@ -601,32 +680,82 @@ process 3, process 2 will ran on the server.
 On the server side, {\it chimera-serve} was executed so that it was able to listen the client's request
 and to give response as necessary.
 
-Meanwhile, on the client side, it was executed at {\it chimera tests/chain-distributed.yaml 4 5 http://localhost:3000}. The client log depicts in listing ~\ref{clientLog} 
+Meanwhile, on the client side, it was executed as {\it chimera tests/chain-distributed.yaml 4 5 http://localhost:3000}. The client log depicts in listing ~\ref{clientLog} 
 
 \begin{lstlisting}[caption=Client Log, label=clientLog, language=bash, basicstyle=\small, breaklines=true]
-START [php programs/add.php "4" "5"] AT    : 15,395,587,568,188
-START [chimera-send "http://localhost:3000" "tests/chain-minimal.yaml" "4" "5"] AT    : 15,395,607,233,624
-END   [php programs/add.php "4" "5"] AT    : 15,395,641,517,534
-TAKES 53,905,697 NS
-END   [chimera-send "http://localhost:3000" "tests/chain-minimal.yaml" "4" "5"] AT    : 15,396,103,823,215
-TAKES 496,566,143 NS
-START [node programs/add.js "9" "-5"] AT    : 15,396,105,155,463
-END   [node programs/add.js "9" "-5"] AT    : 15,396,187,724,022
-TAKES 82,541,434 NS
-4
+[INFO] START PROCESS [php programs/add.php "4" "5"] AT    : 7,310,467,197,740
+[INFO] START PROCESS [chimera-send "http://localhost:3010" "tests/chain-add.yaml" "4" "5"] AT    : 7,310,489,588,596
+[INFO] END PROCESS   [php programs/add.php "4" "5"] AT    : 7,310,529,490,373
+[INFO] PROCESS       [php programs/add.php "4" "5"] TAKES : 62,228,930 NS
+[INFO] STATE AFTER   [php programs/add.php "4" "5"]       : {"a":4,"b":5,"server":"http://localhost:3010","c":9}
+[INFO] END PROCESS   [chimera-send "http://localhost:3010" "tests/chain-add.yaml" "4" "5"] AT    : 7,310,786,490,287
+[INFO] PROCESS       [chimera-send "http://localhost:3010" "tests/chain-add.yaml" "4" "5"] TAKES : 296,877,900 NS
+[INFO] STATE AFTER   [chimera-send "http://localhost:3010" "tests/chain-add.yaml" "4" "5"]       : {"a":4,"b":5,"server":"http://localhost:3010","c":9,"d":9}
+[INFO] START PROCESS [node programs/add.js "9" "9"] AT    : 7,310,787,707,145
+[INFO] END PROCESS   [node programs/add.js "9" "9"] AT    : 7,310,930,153,276
+[INFO] PROCESS       [node programs/add.js "9" "9"] TAKES : 142,419,968 NS
+[INFO] STATE AFTER   [node programs/add.js "9" "9"]       : {"a":4,"b":5,"server":"http://localhost:3010","c":9,"d":9,"e":18}
 \end{lstlisting}
 
 From the log, it can be seen that the second process on client side was executed before the first process finished.
 However, the third process didn't start before the second process started. The output of process 2  was taken from the
 server's response.
 
+The benchmark of the framework is shown at Figure ~\ref{fig:benchmark} and table ~\ref{tbl:benchmark}.
+
+It can be concluded that in average, process 2 takes the longest time. This is expected, since it was executed in the server. 
+
+% Please add the following required packages to your document preamble:
+\begin{table}[]
+\centering
+\caption{Chimera Framework Benchmark}
+    \label{tbl:benchmark}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Experiment          & Process & \multicolumn{1}{l}{Start (ms)} & \multicolumn{1}{l}{End (ms)} & \multicolumn{1}{l}{Time (ms)} & \multicolumn{1}{l}{Total Time (ms)} \\ \midrule
+\multirow{3}{*}{1}  & P 1     & 0                              & 62.29                        & 62.29                                   & \multirow{3}{*}{501.64}                       \\
+                    & P 2     & 22.39                          & 319.29                       & 296.9                                   &                                               \\
+                    & P 3     & 320.51                         & 462.96                       & 142.45                                  &                                               \\
+\multirow{3}{*}{2}  & P 1     & 0                              & 62.22                        & 62.22                                   & \multirow{3}{*}{447.92}                       \\
+                    & P 2     & 18.97                          & 260.11                       & 241.14                                  &                                               \\
+                    & P 3     & 261.35                         & 405.9                        & 144.55                                  &                                               \\
+\multirow{3}{*}{3}  & P 1     & 0                              & 56.02                        & 56.02                                   & \multirow{3}{*}{415.51}                       \\
+                    & P 2     & 20.29                          & 238.06                       & 217.77                                  &                                               \\
+                    & P 3     & 239.62                         & 381.33                       & 141.71                                  &                                               \\
+\multirow{3}{*}{4}  & P 1     & 0                              & 55.54                        & 55.54                                   & \multirow{3}{*}{426.7}                        \\
+                    & P 2     & 18.48                          & 244.95                       & 226.47                                  &                                               \\
+                    & P 3     & 246.14                         & 390.84                       & 144.7                                   &                                               \\
+\multirow{3}{*}{5}  & P 1     & 0                              & 55.39                        & 55.39                                   & \multirow{3}{*}{431.5}                        \\
+                    & P 2     & 26.02                          & 252.57                       & 226.55                                  &                                               \\
+                    & P 3     & 253.78                         & 403.35                       & 149.57                                  &                                               \\
+\multirow{3}{*}{6}  & P 1     & 0                              & 53.84                        & 53.84                                   & \multirow{3}{*}{430.65}                       \\
+                    & P 2     & 18.92                          & 254.81                       & 235.89                                  &                                               \\
+                    & P 3     & 256.07                         & 396.99                       & 140.91                                  &                                               \\
+\multirow{3}{*}{7}  & P 1     & 0                              & 55.14                        & 55.14                                   & \multirow{3}{*}{430.32}                       \\
+                    & P 2     & 20.39                          & 249.6                        & 229.21                                  &                                               \\
+                    & P 3     & 250.74                         & 396.7                        & 145.96                                  &                                               \\
+\multirow{3}{*}{8}  & P 1     & 0                              & 50.33                        & 50.33                                   & \multirow{3}{*}{403.53}                       \\
+                    & P 2     & 20.15                          & 231.62                       & 211.47                                  &                                               \\
+                    & P 3     & 232.79                         & 374.52                       & 141.73                                  &                                               \\
+\multirow{3}{*}{9}  & P 1     & 0                              & 54.57                        & 54.57                                   & \multirow{3}{*}{418.71}                       \\
+                    & P 2     & 18.88                          & 238.59                       & 219.71                                  &                                               \\
+                    & P 3     & 240.2                          & 384.62                       & 144.43                                  &                                               \\
+\multirow{3}{*}{10} & P 1     & 0                              & 55.21                        & 55.21                                   & \multirow{3}{*}{423.98}                       \\
+                    & P 2     & 18.87                          & 246.38                       & 227.52                                  &                                               \\
+                    & P 3     & 247.72                         & 388.97                       & 141.26                                  &                                               \\ \bottomrule 
+\multicolumn{5}{l}{Total Execution Time Average}                                              & 433.046                                       \\ \bottomrule
+\multicolumn{5}{l}{P1 Execution Time Average}                                                 & 56.057                                        \\ \bottomrule
+\multicolumn{5}{l}{P2 Execution Time Average}                                                 & 233.263                                       \\ \bottomrule
+\multicolumn{5}{l}{P3 Execution Time Average}                                                 & 143.276                                       \\ \bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]
 		{test/report.png}
-	\caption{Test}
-	\label{fig:test}
+	\caption{Chimera Framework Benchmark}
+	\label{fig:benchmark}
 \end{figure}
 
 \section{Conclusion}

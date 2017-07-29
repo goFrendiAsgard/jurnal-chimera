@@ -1,7 +1,6 @@
-[
-    {"name": "remote task", "time" : 1000},
-    {"name": "breakfast", "time" : 1000},
-    {"name": "read news", "time" : 2000},
-    {"name": "go to work", "time" : 1000}
-]
+{
+    "p 1": "php programs/add.php.*",
+    "p 2": "chimera-send.*",
+    "p 3": "node programs/add.js.*"
+}
 
