@@ -51,8 +51,8 @@ T.~Feilhauer and M.~Sobotka, ``Def-a programming language agnostic framework
   \emph{Journal of Cloud Computing}, vol.~5, no.~1, p.~20, 2016.
 
 \bibitem{dos7command}
-B.~Watson, ``Dos 7 command,''
-  \url{http://www.lagmonster.org/docs/DOS7/pipes.html}, accessed: 2017-06-19.
+B.~Watson, ``Dos 7 command,'' \url{http://www.lagmonster.org/docs/
+  DOS7/pipes.html}, accessed: 2017-06-19.
 
 \bibitem{conway2003parallel}
 T.~Conway, ``Parallel processing on the cheap: Using unix pipes to run sas

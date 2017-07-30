@@ -4,6 +4,7 @@
 \usepackage{listings}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{tabularx}
 
 \ifCLASSINFOpdf
 \else
@@ -96,14 +97,14 @@ client-server architecture. It imply that the developers need to build a web ser
 to use the mechanisms. However, in any use-case that only need a single computer,
 this is not ideal.
 
-The goal of this research is to provide simple language agnostic framework that allows developer to:
+The goal of this research is to provide simple language agnostic framework. The simplicity of 
+the framework was measured by using following parameters:
 
 \begin{itemize}
-    \item Reuse old components without building any additional layer.
-    \item Define process flow in readable and straight-forward format.
-    \item Work on both, stand alone and distributed environment seamlessly.
+    \item Complexity to develop new application using the framework
+    \item Knowledge required to develop new application using the framework
+    \item Clarity and readability of process flow definition
 \end{itemize}
-
 
 The framework was named Chimera. Compared to CORBA, DEF, XML-RPC, and JSON-RPC, 
 Chimera is much simpler since HTTP is required for distributed computation only. 
@@ -166,8 +167,7 @@ Then, the standard output of {\it calc} and {\it factor} is added into the {\it 
 
 \begin{lstlisting}[caption=Named pipe example, label=namedPipeExample, language=bash, basicstyle=\small, breaklines=true]
 #! mkfifo backpipe 
-
-#! calc 7+3 > backpipe | factor 20 > backpipe | cat backpipe
+#! calc 7+3 >> backpipe | factor 20 >> backpipe | cat backpipe
 10
 2 2 5
 \end{lstlisting}
@@ -194,8 +194,7 @@ The main component of CORBA is the Object Request Broker (ORB) which acts as a b
 between client and service provider. The service provider (server) provide an 
 implementation of an object, while the client can be a user interface that depend on
 the service provided by the server. Both, client and server need to agree about the
-object structure. This agreement is written in an Interface Description Language (IDL),
-the IDL which is called skeleton in server side, and is called stub in client side.
+object structure. This agreement is written in an Interface Description Language (IDL).
 
 \begin{figure}
 	\centering
@@ -227,10 +226,14 @@ module Finance {
 };
 \end{lstlisting}
 
+After the IDL was defined, CORBA would generate source code for server and client. The code for
+the server is called skeleton, while the code for the client is called stub. Developers need to
+modify the generated those code in order to build a CORBA based application.
+
 Compared to UNIX Pipe, CORBA has more complex and rich features. Unfortunately, this also means 
 that CORBA is also more complex than UNIX Pipe. The developer needs to embrace OOP 
 paradigm as well as being familiar with IDL and the CORBA architecture. 
-Despite of it's language agnoticism, some non OOP language (e.g: Matlab and GNU Octave) 
+Despite of it's language agnosticism, some non OOP language (e.g: Matlab and GNU Octave) 
 is not supported by CORBA \cite{feilhauer2016def}. CORBA also suffers of several 
 criticism \cite{henning2006rise}. Regardless to it's popularity, there are many critics towards OOP, 
 as the foundation of CORBA \cite{hadar2013intuition}.
@@ -257,7 +260,7 @@ easy to be implemented. Those three methods are basically another implementation
 Compared to CORBA, these three methods are more flexible. With the exception of SOAP,
 they don't enforce developer to embrace OOP paradigm.
 
-In terms of language agnoticism, XML-RPC and JSON-RPC support any languages that can
+In terms of language agnosticism, XML-RPC and JSON-RPC support any languages that can
 access HTTP and parse/create the data format. However, in order to use these protocols,
 a developer should be aware that the components they built work as a part of a
 bigger system. Tools or programs that built without this consideration need
@@ -305,76 +308,88 @@ CORBA or XML-RPC. However, it still require the developer to add additional laye
 in order to use old components like {\it factor} or {\it calc}
 
 
-\section{Research Goal}
+\section{Framework Simplicity}
 
-Our goal was to build framework that has excellent backward component compatibility, 
-format readability, as well as distributed and stand alone compatibility. 
+Despite of their advantages, the prior approaches discussed in the previous section were
+either too complex or lack of features. The complexity made the cost development higher
+as well as hindered new developers from adopting the frameworks.
 
+Our goal was to provide a simple language agnostic framework which in turn would reduce
+the development cost and ease the adoptation process for newbies.
 
-\subsection{Backward Component Compatibility}
+In this section, we provided criterias to measure the simplicity of the framework.
+We assume the components used in process flow are non-interactive-UNIX-utilites-like
+programs (e.g: {\it factor}, {\it calc}, etc). 
+This means that the components required several arguments as inputs and yielding output
+in plain-text format.
 
-Our greatest task was to let developers use the pre-existing components without building 
-adjustment layers.
-
-{\it factor}, {\it calc} and most UNIX utilities were excellent example for this case.
-Those programs were already used before CORBA, XML-RPC and JSON-RPC were built.
-
-Unfortunately, those old components are not compatible with CORBA or any newer frameworks.
-Consequently, developers has to built their own adjustment layer. This adjustment layer has 
-to do at least two works:
-
-\begin{itemize}
-    \item Execute the component and catch the output. 
-    \item Reformat the output into JSON/XML object.
-\end{itemize}
-
-Moreover, even a component that was intentionally developed for CORBA needs it's own IDL Layer.
-
-Compared to CORBA and its successsors, UNIX Pipe Mechanism doesn't need any additional layer.
-This has been already demonstrated in the previous section.
-
-UNIX Pipe runs on command line interface, which is consistent and still popularly used today.
-Many programs were built with this consideration. For example, {\it nmap}, a port-scanning 
-program for penetration testing, is basically run on CLI. The GUI  {\it zenmap} is no other than
-additional GUI Layer that run its CLI counterpart.
-
-Chimera has similar mechanism to UNIX Pipe. The only difference is, Chimera doesn't immediately 
-redirect the output of a component as the input of another. Contrary, a global JSON objects act as
-temporary storage.
+Indepth comparisons between the frameworks related to the measurement would be presented 
+in the last section of this paper.
 
 
-\subsection{Readability of The Format}
+\subsection{Complexity to Develop New Application Using The Framework}
 
-Using CORBA library, as well as HTTP request, developers can easily call any remote component and 
-use it in their application.
+Simplicity of the framework could be measured by looking at how many steps required
+in order to use it. Simpler framework require less step then its more complex counterparts.
 
-In CORBA, developers has to initialize Orb object before being able to access remote resources. There
-are several implementation of CORBA. Thus the format readability of component definition is solely depend
-on the programming language on the client side.
+Considering some non-interactive-UNIX-utilites-like UNIX utilities like program was used as 
+process components, CORBA will need at least 3 steps, including build the IDL, build server 
+side program, and build client side program. However, since CORBA is tightly embrace OOP paradigm, 
+additional effort is also required while building the server side program in order to wrap 
+the output in an object. In CORBA, the process flow is written in the client side program.
 
-XML-RPC, JSON-RPC, REST also have similar protocol. However the later technologies are more flexible. 
-In REST, for example, developers are free to define their own custom protocol.
+On the other hand, UNIX Pipe only require a single step. Defining the process flow itself.
+The developer can write the process flow as single bash script file which is also act as
+new application. Thus, in regard of complexity to develop new application, UNIX Pipe is 
+simpler than CORBA.
 
-Beaker Notebook also has similar approach. API for storing and receiving the data among different programming
-languages were provided. The readability is vary between the languages. Accessing the API in Python for example, 
-require less line compared to accessing the same API in Java.
+Similar to UNIX Pipe, Chimera also allows developer to define the chain (YAML formatted file)
+that is also executable by invoking {\it chimera chain-file.yaml} in the CLI.
 
-Those approaches require developer to dive into client's source code in order to define or understand the data flow.
 
-In terms of readability, Unix Unnamed Pipe Mechanism is more readable. Pipe and redirection symbol perfectly represent
-the data flow itself in a single line.
+\subsection{Knowledge Required to Develop New Application Using The Framework}
 
-However, when developers start to work with parallel scenario, named pipe is needed. Named pipe is far more complex since
-it requires temporary files to act as buffer. This also severely reduce the readability of the data flow.
+Simplicity of the framework was also correlated to the knowledge needed by developers in order 
+to use it. 
 
-Chimera tried to overcome this problem by providing a global JSON objects as temporary storage. 
-The storage has the same role as named pipe. However, unlike named pipe, it doesn't affect how the data-flow written.
+CORBA required developers to alreay know about the IDL standard format, client code standard, and
+server code standard. The server code also acts as intermediate layer in case of the developers
+use non-interactive-UNIX-utilites-like program as process components.
 
-\subsection{Distributed and Stand Alone Interoperability}
+On the other hand, UNIX Pipe only required developers to understand the pipe mechanism itself.
+Even a system administrator without a profound programming knowledge can easily build a Unix Pipe
+based flow process. Again, in terms of simplicity, Unix Pipe is better than CORBA.
 
-In CORBA, XML-RPC, and JSON-RPC, network protocol has to be present either the developers need to access 
-remote or local component.
+Instead of require pipe mechanism knowledge, Chimera needs the developers to know about YAML format 
+in order to write the chain file. Although quantitively Chimera and Unix Pipe require the same amount
+of knowledge, Unix Pipe was consider as more popular solution. This is undestandable since Unix Pipe was
+already exists since the beginning of UNIX. 
 
+
+\subsection{Clarity and Readability of Process Flow Definition}
+
+Another parameter to define framework's simplicity is the readability of process flow definition.
+This parameter is subjective to developer's experience and preference. Thus, we would only provide 
+comparisons so that the readers will be able to judge the simplicity of the framework.  
+
+In CORBA, the process flow definition was located at client side program. That's mean that the
+readability of the process flow is highly related to the programming language used in client side.
+The drawback of this approach is the process flow definition also being mixed up with Orb object 
+initialization as well the mechanism of the programming language. Although CORBA has already define
+interfae for remote component execution, threading and synchronization might still needed in order to
+achieve parallelism.
+
+On the other hand, UNIX pipe is more straight-forward. Developers could compose the components by using
+pipe and redirection symbols. At some cases, developers can also use {\it &} to initiate background process.
+The synchronization of background processes can be achieved by using {\it wait} command. For most cases,
+Unix Pipe mechanism is clear and readable. However, when it comes to a process that require more than 
+single argument which each arguments were taken from other process's output, Unix pipe mechanism might 
+require command substitution. In distributed computing, Unix Pipe depended on external tools like 
+{\it curl}. The implementation of remote resource call is beyond the scope of Unix Pipe The developers
+need to build their own implementation as well as the protocols.
+
+Chimera offer more consise process flow definition in YAML format. Since Chimera had its own utilities
+like {\it chimera-serve} and {\it chimera-send}, remote and local resource call can be done in similar way.
 
 \section{Chimera Architecture}
 
@@ -656,10 +671,165 @@ The typical usage of chimera-send is:
 
 \section{Test}
 
+In this section two tests are presented. In simplicity test, we compare development complexity,
+knowledge requirement, and process flow definition clarity of Chimera and other frameworks. In
+usability test, we demonstrate how Chimera works semi-distributed and parallel computing.
+
+For testing purpose, we had built two simple programs in PHP and Javascript. The task was to perform
+{\it (a+b) + (a+b)}. The task was broken down into several sub processes:
+
+\begin{itemize}
+    \item Process 1 : c = a+b
+    \item Process 2 : d = a+b 
+    \item Process 3 : e = c+d 
+\end{itemize}
+
+Process 1 and process 2 would be executed in parallel. After those processes had been executed, process
+3 would be started. Moreover, process 1 and process 3 would run locally, while process 2 would run on the
+server.
+
+To demonstrate language agnosticism, process 1 and process 2 was written in PHP (they have the same source 
+code), while process 3 was written in Javascript. Each programs require two input arguments and return 
+single output. The source code of process 1 and process 2 is presented in listing ~\ref{add-php}, 
+while the source code of process 3 is shown in listing ~\ref{add-js}
+
+\begin{lstlisting}[caption=Source Code of Process 1 and Process 2, label=add-php, language=php, basicstyle=\small, breaklines=true]
+<?php
+// filename: tests/add.php
+
+function add($n1, $n2){
+    return $n1 + $n2;
+}
+
+// executor
+$n1 = $argv[1];
+$n2 = $argv[2];
+echo add($n1, $n2);
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption=Source Code of Process 3, label=add-js, language=javascript, basicstyle=\small, breaklines=true]
+// filename: tests/add.js
+
+function add(n1, n2){
+    return n1+n2;
+}
+
+// executor
+var n1 = parseInt(process.argv[2]);
+var n2 = parseInt(process.argv[3]);
+console.log(add(n1, n2));
+\end{lstlisting}
+
+
+\subsection{Simplicity Test}
+
+In order to implement the testing scenario by using Unix Pipe, at least three steps are needed. First,
+developers had to build the server. This is needed since process 2 executed remotely. After the server
+were built, developers also needed to create a server side program, so that the server would be able
+to response to client's request. 
+Since unix pipe doesn't provide built-in web server, the developers are responsible to build their own.
+Consequently, it implies that the developers should have adequate knowledge of server side programming as 
+well as server configuration. 
+Lastly, developers should define the process flow. The process flow might require CURL and command 
+substitution. Listing ~\ref{unixPipeTest} show the process flow definition to achieve our goal.
+Once the developers get used to common utilities like {\it cat}, redirection symbol {\it <}, 
+and command substitution (using parantheses), the process is quite readable.
+
+\begin{lstlisting}[caption=Unix Pipe Process Flow, label=unixPipeTest, language=bash, basicstyle=\small, breaklines=true]
+#! mkfifo c
+#! mkfifo d
+#! curl http://localhost:80/add/$1/$2 > c
+#! php tests/add.php $1 $2 > d
+#! node tests/add.js $(cat c) $(cat d)
+\end{lstlisting}
+
+CORBA required 4 steps in order to run perfectly. First, the developers need to define the IDL. 
+After the IDL had been built, developers need to build the server side program. After the server
+side program completed, developers also need to build the client side program. Server side and client side
+programs didn't have to be built in the same language. Server side programming is required in order to wrap
+the output of {\it add.php} into an object. Lastly, developers need to run the CORBA service.
+As CORBA has its own server implementation, developers were not required to build their own implementation.
+However, when parallel computation required, the developers should build their own implementation of 
+multithreading and synchronization. Also, since the process flow definition was implemented directly in 
+client's program, there is no actual separation between the process flow definition and the source code itself
+(i.e: Orb initialization and remote object call might be located in the same file).
+
+Technically REST is less strict compared to CORBA. REST heavily depend on HTTP Verb. Developers didn't need
+to build IDL since REST specification doen't enforce anyone to follow certain rule. Several best-practices
+can be find in the internet, but there is no strict standard. In order to use REST framework, developers need to
+build client-side code and server-side code. After the scripts had been created, developers need to run the service.
+In our case, server side programming is needed to translate the HTTP request into CLI arguments.
+
+Similar to Unix pipe, to use Chimera, developers doesn't have to know the source code. Developers only need to
+understand the YAML-chain format. Three steps is required in order to achieve our goal. First, developers had to
+provide a YAML-chain to execute process 2. At the client side, another YAML-chain to define the entier process flow
+is also needed. Lastly, developers need to run {\it chimera-serve} on the server. The implementation detail is
+defined in usability test section.
+
+The summarized comparison of the frameworks is presented in table ~\ref{tbl:simplicityTest}.
+
+\begin{table}[]
+\centering
+\caption{Simplicity Comparison}
+\label{tbl:simplicityTest}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+Metrics      &                 & Unix Pipe     & CORBA         & REST          & Chimera       \\ \midrule
+Complexity   & Steps           & 3 steps       & 4 steps       & 3 steps       & 3 steps       \\
+             & to build new    &               &               &               &               \\
+             & application     &               &               &               &               \\
+             &                 &               &               &               &               \\
+             &                 &               &               &               &               \\
+             & Need of         & No            & Yes           & Yes           & No            \\
+             & adjustment      &               &               &               &               \\
+             & layer           &               &               &               &               \\
+             &                 &               &               &               &               \\
+             &                 &               &               &               &               \\ \midrule
+Knowledge    & Client side     & No            & Yes           & Yes           & No            \\
+requirement  & programming     &               &               &               &               \\
+             &                 &               &               &               &               \\
+             & Server side     & Yes           & No            & Yes           & No            \\
+             & programming     &               &               &               &               \\
+             &                 &               &               &               &               \\
+             & OOP             & No            & Yes           & No            & No            \\
+             &                 &               &               &               &               \\
+             & Configure       & Yes           & No            & Yes           & No            \\
+             & server          &               &               &               &               \\
+             & manually        &               &               &               &               \\
+             &                 &               &               &               &               \\
+             & HTTP Verb       & No            & No            & Yes           & No            \\
+             &                 &               &               &               &               \\
+             & Pipe and        & Yes           & No            & No            & No            \\
+             & redirection     &               &               &               &               \\
+             &                 &               &               &               &               \\
+             & YAML format     & No            & No            & No            & Yes           \\
+             &                 &               &               &               &               \\
+             & Implementing    & No            & Yes           & Yes           & No            \\
+             & threading \&    &               &               &               &               \\
+             & synchronization &               &               &               &               \\
+             &                 &               &               &               &               \\
+             &                 &               &               &               &               \\ \midrule
+Process flow &                 & Use           & Depend on     & Depend on     & Use           \\
+readability  &                 & pipe and      & chosen        & chosen        & YAML          \\
+             &                 & redirec-      & scripting     & scripting     & format        \\
+             &                 & tion          & language.     & language.     &               \\
+             &                 & symbol        & Process       & Process       &               \\
+             &                 &               & flow          & flow          &               \\
+             &                 &               & and client    & and client    &               \\
+             &                 &               & code are      & code are      &               \\
+             &                 &               & mixed up      & mixed up      &               \\
+             &                 &               &               &               &               \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Usability Test}
+
 Listing ~\ref{distributedParallelYaml} describes the process of testing whether the Chimera works
 in parallel and distributed environment.
 
-\begin{lstlisting}[caption=Distributed and Parallel YAML-chain Scenario, label=distributedParallelYaml, language=yaml, basicstyle=\small, breaklines=true]
+\begin{lstlisting}[caption=Distributed and Parallel Scenario YAML-chain Scenario, label=distributedParallelYaml, language=yaml, basicstyle=\small, breaklines=true]
+# filename: tests/chain-distributed.yaml
 ins: a,b,server
 out: e
 verbose: true
@@ -678,9 +848,15 @@ After process 1 and process 2 finished, process 3 was executed. Unlike process 1
 process 3, process 2 will ran on the server.
 
 On the server side, {\it chimera-serve} was executed so that it was able to listen the client's request
-and to give response as necessary.
+and to give response as necessary. Server side process flow is defined in listing ~\ref{serverYaml}
 
-Meanwhile, on the client side, it was executed as {\it chimera tests/chain-distributed.yaml 4 5 http://localhost:3000}. The client log depicts in listing ~\ref{clientLog} 
+\begin{lstlisting}[caption=Server side YAML-Chain, label=serverYaml, language=yaml, basicstyle=\small, breaklines=true]
+# filename: tests/chain-add.yaml
+(a,b) -> php programs/add.php -> c
+\end{lstlisting}
+
+Meanwhile, on the client side, it was executed as {\it chimera tests/chain-distributed.yaml 4 5 http://localhost:3000}. 
+The client log depicts in listing ~\ref{clientLog}
 
 \begin{lstlisting}[caption=Client Log, label=clientLog, language=bash, basicstyle=\small, breaklines=true]
 [INFO] START PROCESS [php programs/add.php "4" "5"] AT    : 7,310,467,197,740
@@ -701,7 +877,7 @@ From the log, it can be seen that the second process on client side was executed
 However, the third process didn't start before the second process started. The output of process 2  was taken from the
 server's response.
 
-The benchmark of the framework is shown at Figure ~\ref{fig:benchmark} and table ~\ref{tbl:benchmark}.
+The benchmark of the framework is shown at figure ~\ref{fig:benchmark} and table ~\ref{tbl:benchmark}.
 
 It can be concluded that in average, process 2 takes the longest time. This is expected, since it was executed in the server. 
 
